@@ -1,0 +1,2 @@
+This folder is the data model that use in this project.
+External folder is the data model that will be use when data is sent to applecation side.

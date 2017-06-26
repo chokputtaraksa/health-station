@@ -1,0 +1,109 @@
+<ion-header>
+ <ion-navbar color="primary">
+  <ion-buttons end>
+    <button ion-button icon-only (click)="showMenu($event)">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-title>
+    Dashboard
+  </ion-title>
+ </ion-navbar>
+</ion-header>
+ 
+<ion-content color="f7f7f7">
+  
+  <ion-card>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/2.jpg">
+      </ion-avatar>
+      <h2 item-end>{{name}}</h2>
+    </ion-item>
+
+    <!--<img src="assets/icon/heart.gif">-->
+<!--
+    <ion-card-content>
+      <p>Birth date : {{birth_date}}</p>
+    </ion-card-content>-->
+
+    <!--<ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>12 Likes</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>4 Comments</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+    </ion-row>-->
+
+  </ion-card>
+  <ion-card>
+
+    <ion-item (click)="goPage('Weight')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/weight.png"></ion-img></ion-icon>
+      <h2>น้ำหนัก</h2>
+      <h3>weight</h3>
+      <h2 item-end>56 kg</h2>
+    </ion-item>
+
+    <ion-item (click)="goPage('Height')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/height.png"></ion-img></ion-icon>
+      <h2>ส่วนสูง</h2>
+      <h3>Height</h3>
+      <h2 item-end>172 cm</h2>
+    </ion-item>
+
+    <ion-item (click)="goPage('Heart rate')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/hr.png"></ion-img></ion-icon>
+      <h2>อัตราการเต้นของหัวใจ</h2>
+      <h3>Heart rate</h3>
+      <h2 item-end>50 bpm</h2>
+    </ion-item>
+
+    <ion-item (click)="goPage('Blood Pressure')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/bp.png"></ion-img></ion-icon>
+      <h2>ความดันโลหิต</h2>
+      <h3>Blood pressure</h3>
+      <h2 item-end>120/80 mm Hg</h2>
+      <!--<h2 class="align_right">80 mm Hg</h2>-->
+    </ion-item>
+
+    <ion-item (click)="goPage('Temperature')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/temp.png"></ion-img></ion-icon>
+      <h2>อุณหภูมิร่างกาย</h2>
+      <h3>Temperature</h3>
+      <h2 item-end>37 °C</h2>
+    </ion-item>
+
+  </ion-card>
+
+  <!--<ion-list no-lines>
+ 
+    <ion-item-sliding *ngFor="let todo of todos">
+ 
+      <ion-item>
+        {{todo.title}}
+      </ion-item>
+ 
+      <ion-item-options>
+        <button ion-button color="danger" (click)="deleteTodo(todo)">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+ 
+  </ion-list>-->
+ 
+</ion-content>

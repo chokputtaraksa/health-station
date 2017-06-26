@@ -1,0 +1,37 @@
+<ion-header >
+  <ion-navbar class="header-bg-color" >
+    <ion-title>Patient data</ion-title>
+  </ion-navbar>
+  
+</ion-header>
+
+<!-- <script>
+  screen.lockOrientation('landscape');
+</script> -->
+	
+<script src="js/socket.io-1.2.0.js"></script>
+
+<ion-content >
+  
+  <ion-list>
+    <ion-item class="item-stable">
+      <ion-icon item-left small><ion-img width="50" height="50" src="assets/icon/heart.gif"></ion-img></ion-icon>
+      Hexoskin : Heartrate
+      <p item-right>{{hexo_hr}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon item-left ><ion-img width="50" height="50" src="assets/icon/breath.png"></ion-img></ion-icon>
+      Hexoskin : Breathrate
+      <p item-right>{{hexo_br}}</p>
+    </ion-item>
+    <ion-item class="item-stable">
+      <ion-icon item-left small><ion-img width="50" height="50" src="assets/icon/heart.gif"></ion-img></ion-icon>
+      Fitbit : Heartrate
+      <p item-right>{{fitbit_hr}}</p>
+    </ion-item>
+    <!-- <ion-item>
+      Temperatures
+      <p item-right>37 ๐C</p>
+    </ion-item> -->
+  </ion-list>
+</ion-content>

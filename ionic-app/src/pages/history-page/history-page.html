@@ -1,0 +1,136 @@
+<ion-header >
+  <ion-navbar color="primary">
+    <ion-title>
+      History
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-row>
+      <ion-col width-50 item-left>
+        <ion-item>
+          <ion-label color="primary" stacked >Type : </ion-label>
+          <ion-select [(ngModel)]="selectedType">
+            <ion-option value="anyType">Any</ion-option>
+            <ion-option value="HR">Heart rate</ion-option>
+            <ion-option value="BR">Respiration rate</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col width-50>
+        <ion-item>
+          <ion-label color="primary" stacked>Tool : </ion-label>
+          <ion-select [(ngModel)]="selectedTool">
+            <ion-option value="anyTool">Any</ion-option>
+            <ion-option value="Hexoskin">Hexoskin</ion-option>
+            <ion-option value="Fitbit">Fitbit</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>     
+    </ion-row>
+
+    <ion-row>
+      <ion-col width-60 item-left>
+        <ion-item>
+          <ion-label color="black" stacked>From : </ion-label>
+          <ion-datetime displayFormat="DD / MM / YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="fromDate" ></ion-datetime> <!-- [(ngModel)]="event.month" -->
+        </ion-item>
+      </ion-col>
+      <ion-col width-40>
+        <ion-item>
+          <ion-label color="black" stacked>Time : </ion-label>
+          <ion-datetime displayFormat="HH : mm : ss" pickerFormat="HH mm ss" [(ngModel)]="fromTime"></ion-datetime> <!-- [(ngModel)]="event.month" -->
+        </ion-item>
+      </ion-col>     
+    </ion-row>
+
+    <ion-row>
+      <ion-col width-60 item-left>
+        <ion-item>
+          <ion-label color="black" stacked>To : </ion-label>
+          <ion-datetime displayFormat="DD / MM / YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="toDate" placeholder="01/01/2017"></ion-datetime> <!-- [(ngModel)]="event.month" -->
+        </ion-item>
+      </ion-col>
+      <ion-col width-40>
+        <ion-item>
+          <ion-label color="black" stacked>Time : </ion-label>
+          <ion-datetime displayFormat="HH : mm : ss" pickerFormat="HH mm ss" [(ngModel)]="toTime" placeholder="00:00:00"></ion-datetime> <!-- [(ngModel)]="event.month" -->
+        </ion-item>
+      </ion-col>     
+    </ion-row>   
+
+    <ion-row>
+      <ion-col>
+        <button ion-button round (click)="getHistory()">Accept</button>
+      </ion-col>
+    </ion-row>
+
+  </ion-list>
+
+  <ion-list>
+    
+    <ion-item><br></ion-item>
+    <ion-item class="test" text-center>History</ion-item>
+    <ion-row>
+      <ion-col width-20>
+        <strong>
+          <ion-item text-center>Tool</ion-item>
+        </strong>
+      </ion-col>
+      <ion-col width-15>
+        <strong>
+          <ion-item text-center>Value</ion-item>
+        </strong>
+      </ion-col>
+      <ion-col width-25>
+        <strong>    
+          <ion-item text-center>Unit</ion-item>
+        </strong>
+      </ion-col>
+      <ion-col width-40>
+        <strong>
+          <ion-item text-center>Date_time</ion-item>
+        </strong>
+      </ion-col>
+    </ion-row>
+    <ion-item class="text-center" *ngIf="!arrayHr?.length && !arrayBr?.length">Don't have data in these periods</ion-item>
+    <!--<ion-scroll zooming="true" direction="y" style="width:auto; height: auto"> -->
+      <ion-item *ngIf="arrayBr?.length">Respiration rate</ion-item>
+      <ion-row *ngFor="let item of arrayBr"> 
+        <ion-col width-20>
+          <ion-item class="text-center">{{item.user_notes}}</ion-item>
+        </ion-col>
+        <ion-col width-15>
+          <ion-item class="text-center">{{item.respiratory_rate.value}}</ion-item>
+        </ion-col>
+        <ion-col width-25>
+          <ion-item class="text-center">{{item.respiratory_rate.unit}}</ion-item>
+        </ion-col>
+        <ion-col width-40>
+          <ion-item class="text-center">{{getTime(item.effective_time_frame.date_time)}}</ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-item *ngIf="arrayHr?.length">Heart rate</ion-item>
+      <ion-row *ngFor="let item of arrayHr"> 
+        <ion-col width-20>
+          <ion-item class="text-center">{{item.user_notes}}</ion-item>
+        </ion-col>
+        <ion-col width-15>
+          <ion-item class="text-center">{{item.heart_rate.value}}</ion-item>
+        </ion-col>
+        <ion-col width-25>
+          <ion-item class="text-center">{{item.heart_rate.unit}}</ion-item>
+        </ion-col>
+        <ion-col width-40>
+          <ion-item class="text-center">{{getTime(item.effective_time_frame.date_time)}}</ion-item>
+        </ion-col>
+      </ion-row>
+
+  </ion-list>
+
+  
+</ion-content>

@@ -1,0 +1,28 @@
+.ios, .md {
+ 
+    home-page {
+ 
+    }
+
+    // ion-avatar img  {
+    //     width:100% !important;  
+    //     height : 100% !important;  
+    //     max-width: 100px !important;  //any size
+    //     max-height: 100px !important; //any size
+    // }
+
+    .profilepicsize  {
+        width: 100% !important;  
+        height : 100% !important;  
+        max-width: 100px !important;  //any size
+        max-height: 100px !important; //any size 
+        border-radius : 50px;
+    }
+
+    .aling_left{
+        text-align: left;
+    }
+    .aling_right{
+        text-align: right;
+    }
+}
