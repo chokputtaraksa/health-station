@@ -2,7 +2,7 @@
 
 | Method  | Path |
 | ------------- | ------------- |
-| POST | <serverURL:port>/api/data/save/  |
+| POST | \<serverURL:port\>/api/data/save/  |
 | GET  | <serverURL:port>/api/data/allLatest/  |
 | GET  | <serverURL:port>/api/data/period/ |
 | GET  | <serverURL:port>/api/data/latest/ |
