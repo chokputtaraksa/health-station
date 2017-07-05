@@ -6,12 +6,12 @@
  */
 
 
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Component, NgZone } from '@angular/core';
+import { IonicPage } from 'ionic-angular';
+import { Component } from '@angular/core';
 // import { NavController } from 'ionic-angular';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
-import * as io from 'socket.io-client'
+// import * as io from 'socket.io-client'
 
 @IonicPage()
 @Component({

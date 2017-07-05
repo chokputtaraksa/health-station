@@ -2,13 +2,13 @@
  
     login-page {
  
-        // ion-content {
-        //     background-image: url("../assets/view.jpeg");
-        //     background-size:cover;
-        // }
         ion-content {
-            background-color: #f7f7f7 
+            background-image: url("../assets/mascot.jpg");
+            background-size:cover;
         }
+        // ion-content {
+        //     background-color: #f7f7f7 
+        // }
         scroll-content {
             display: flex;
             flex-direction: column;

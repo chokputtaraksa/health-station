@@ -12,8 +12,7 @@ import { AlertController } from 'ionic-angular';
 })
 export class LoginPage {
  
-    email: string;
-    password: string;
+    idNumber: string;
     loading: any;
     alert : string;
  
@@ -39,24 +38,23 @@ export class LoginPage {
     login(){
  
         this.showLoader();
-        if(this.validateEmail(this.email)){
+        // if(this.validateEmail(this.email)){
             let credentials = {
-                email: this.email,
-                password: this.password
+                idNumber: this.idNumber,
             };
             // console.log(credentials);
-            if(!credentials.email || !credentials.password){
+            if(!credentials.idNumber){
                 this.loading.dismiss();
                 let alert = this.alertCtrl.create({
                     title: "Undefined",
-                    subTitle: 'Undefined username/password',
+                    subTitle: 'Undefined id number',
                     buttons: ['Dismiss']
                 });
                 alert.present();
             }else{
                 this.authService.login(credentials).then((result) => {
                     this.loading.dismiss();
-                    console.log(result);
+                    // console.log(result);
                     // if(result['user']['role'] ==='doctor'){ // if you are doctor u will redirect to doctor page
                     //     this.navCtrl.setRoot(Doctor1stPage);
                     // }else if(result['user']['role'] ==='relative'){ // if not redirect to relative page
@@ -68,22 +66,22 @@ export class LoginPage {
                     this.loading.dismiss();
                     let alert = this.alertCtrl.create({
                         title: err.statusText,
-                        subTitle: 'Invalid username or password',
+                        subTitle: 'Invalid id number',
                         buttons: ['Dismiss']
                     });
                     alert.present();
                     // console.log(err);
                 });
             }
-        }else{
-            this.loading.dismiss();
-            let alert = this.alertCtrl.create({
-                title: "Undefined",
-                subTitle: 'Invalid email',
-                buttons: ['Dismiss']
-            });
-            alert.present();
-        }
+        // }else{
+        //     this.loading.dismiss();
+        //     let alert = this.alertCtrl.create({
+        //         title: "Undefined",
+        //         subTitle: 'Invalid email',
+        //         buttons: ['Dismiss']
+        //     });
+        //     alert.present();
+        // }
     }
  
     launchSignup(){
@@ -100,9 +98,9 @@ export class LoginPage {
  
     }
 
-    validateEmail(email) {
-        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-    }
+    // validateEmail(email) {
+    //     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //     return re.test(email);
+    // }
  
 }

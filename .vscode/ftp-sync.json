@@ -1,0 +1,20 @@
+{
+    "remotePath": "/home/chok/project2",
+    "host": "203.151.85.73",
+    "username": "chok",
+    "port": 22,
+    "protocol": "sftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": "/Users/RattapumPuttaraksa/.ssh/id_rsa",
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store",
+        "\\token.js",
+        "\\device-access",
+        "\\Mockup",
+        "\\ionic-app"
+    ]
+}

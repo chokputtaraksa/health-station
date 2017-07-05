@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 
 import { HomePage } from '../home/home';
-import { LoginPage } from '../login-page/login-page';
-import { SignupPage } from '../signup-page/signup-page';
+// import { LoginPage } from '../login-page/login-page';
+// import { SignupPage } from '../signup-page/signup-page';
 import { SensorPage } from '../sensor-page/sensor-page';
 import { HistoryPage } from '../history-page/history-page';
 

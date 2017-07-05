@@ -24730,12 +24730,17 @@ ion-navbar.toolbar {
   }
 }
 
-.ios .profilepicsize, .md .profilepicsize {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100px !important;
-  max-height: 100px !important;
-  border-radius: 50px;
+.ios .roundness_card, .md .roundness_card {
+  border-radius: 25px;
+}
+
+.ios .card-title, .md .card-title {
+  position: absolute;
+  top: 36%;
+  font-size: 2.0em;
+  width: 100%;
+  font-weight: bold;
+  color: #fff;
 }
 
 .ios .aling_left, .md .aling_left {
@@ -24747,7 +24752,8 @@ ion-navbar.toolbar {
 }
 
 .ios login-page ion-content, .md login-page ion-content {
-  background-color: #f7f7f7;
+  background-image: url("../assets/mascot.jpg");
+  background-size: cover;
 }
 
 .ios login-page scroll-content, .md login-page scroll-content {
@@ -24841,6 +24847,43 @@ ion-navbar.toolbar {
   text-align: center;
 }
 
+.ios .scroll-content, .md .scroll-content {
+  background-color: #f4f4f4;
+}
+
+.ios ion-card-header, .md ion-card-header {
+  font-weight: bold;
+}
+
+.ios .half-btn-size, .md .half-btn-size {
+  width: 50%;
+  height: 20%;
+}
+
+.ios .full-btn-size, .md .full-btn-size {
+  width: 100%;
+  height: 40%;
+  background-color: pink;
+}
+
+.ios .align-center, .md .align-center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
+.ios ion-avatar img, .md ion-avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 500px !important;
+  max-height: 500px !important;
+}
+
+.ios img, .md img {
+  width: 200;
+  height: 200;
+}
+
 .video-container {
   position: relative;
   padding-bottom: 56.25%;
@@ -24924,4 +24967,22 @@ ion-navbar.toolbar {
 
 .ios page-summary-page ion-card-header, .md page-summary-page ion-card-header {
   font-weight: bold;
+}
+
+.ios page-summary-page .half-btn-size, .md page-summary-page .half-btn-size {
+  width: 50%;
+  height: 20%;
+}
+
+.ios page-summary-page .full-btn-size, .md page-summary-page .full-btn-size {
+  width: 100%;
+  height: 40%;
+  background-color: pink;
+}
+
+.ios page-summary-page .align-center, .md page-summary-page .align-center {
+  position: absolute;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }

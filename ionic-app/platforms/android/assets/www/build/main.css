@@ -24747,7 +24747,7 @@ ion-navbar.toolbar {
 }
 
 .ios login-page ion-content, .md login-page ion-content {
-  background-image: url("../assets/view.jpeg");
+  background-image: url("../assets/mascot.jpg");
   background-size: cover;
 }
 
@@ -24917,4 +24917,12 @@ ion-navbar.toolbar {
   color: red;
   width: 100%;
   text-align: right;
+}
+
+.ios page-summary-page .scroll-content, .md page-summary-page .scroll-content {
+  background-color: #f4f4f4;
+}
+
+.ios page-summary-page ion-card-header, .md page-summary-page ion-card-header {
+  font-weight: bold;
 }

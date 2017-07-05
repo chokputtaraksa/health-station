@@ -1,8 +1,0 @@
-When add a new devices you must create new code at 
-    1. dataAccess.js = How to get product data
-    2. normalizeData.js = How to reformat data
-    3. autorun.js = Save data from dataAccess.js to mongo
-    4. db.js = devices service
-    5. token.js = Get user permission at first time
-
-Algorithm at autorun should be fixed, because it use polling method.

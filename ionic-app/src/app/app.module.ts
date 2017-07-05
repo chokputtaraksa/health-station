@@ -9,9 +9,9 @@ import { SensorPage } from '../pages/sensor-page/sensor-page';
 import { HistoryPage } from '../pages/history-page/history-page';
 import { LinkPage } from '../pages/link-page/link-page';
 import { SummaryPage } from '../pages/summary-page/summary-page';
+import { ProfilePage } from '../pages/profile-page/profile-page';
 // import { TabsPage } from '../pages/tabs/tabs';
 
-import { Todos } from '../providers/todos';
 import { Auth } from '../providers/auth';
 
 
@@ -30,7 +30,8 @@ import { HttpModule } from '@angular/http';
     SensorPage,
     HistoryPage,
     LinkPage,
-    SummaryPage
+    SummaryPage,
+    ProfilePage
     // TabsPage
   ],
   imports: [
@@ -48,11 +49,11 @@ import { HttpModule } from '@angular/http';
     SensorPage,
     HistoryPage,
     LinkPage,
-    SummaryPage
+    SummaryPage,
+    ProfilePage
     // TabsPage
   ],
   providers: [
-    Todos,
     Auth,
     StatusBar,
     SplashScreen,

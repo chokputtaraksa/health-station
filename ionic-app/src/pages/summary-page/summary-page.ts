@@ -1,6 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, PopoverController} from 'ionic-angular';
+import { Http,Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
+
 import { Auth } from '../../providers/auth';
+import { Config } from '../../config';
 import { Chart } from 'chart.js';
 import { LinkPage } from '../link-page/link-page';
 import { LoginPage } from '../login-page/login-page';
@@ -20,38 +24,35 @@ export class SummaryPage {
 
     @ViewChild('lineCanvas') lineCanvas;
 
+    uid : string;
     lineChart: any;
     title : string;
- 
-    constructor(public navCtrl: NavController, public navParams : NavParams, public alertCtrl: AlertController, public authService: Auth, public loadingCtrl: LoadingController, public popoverCtrl: PopoverController) {
-        this.title = this.navParams.get('type');
-    }
-//  ionViewDidLoad() { //will trigger as soon as the page is loaded
-//     console.log("didload");
-//         this.showLoader();
- 
-//         //Check if already authenticated
-        // this.authService.checkAuthentication().then((res) => {
-        //     console.log("Already authorized");
-        //     this.loading.dismiss();
-        // }, (err) => {
-        //     console.log("Not already authorized");
-        //     this.loading.dismiss();
-        //     this.navCtrl.setRoot(LoginPage);
-        // });
- 
-//     }   
+    period : string;
+    mode : string;
+    description : any;
+    todayData : any;
+    date : string;
 
-    showMenu(myEvent){
-        let popover = this.popoverCtrl.create(LinkPage);
-        popover.present({
-            ev: myEvent
-        });
+ 
+    constructor(public http : Http, public navCtrl: NavController, public navParams : NavParams, public alertCtrl: AlertController, public authService: Auth, public loadingCtrl: LoadingController, public popoverCtrl: PopoverController) {
+        this.title = this.navParams.get('type');
+        this.period = "Week";
+        this.mode = "today"
     }
 
     ionViewDidLoad() {
         this.authService.checkAuthentication().then((res) => {
-            // console.log("Already authorized");
+            this.authService.getUserInfo().then(resp => {
+                // console.log(resp);
+                this.uid = resp['uid']
+                this.getData(resp['uid'], this.navParams.get('type')).then(response=>{
+                    if(response){
+                        this.todayData = response;
+                        this.date = this.isTheSameDate(response['effective_time_frame']['date_time']);
+                    }
+                });
+            });
+
         }, (err) => {
             console.log("Not already authorized");
             this.navCtrl.setRoot(LoginPage);
@@ -83,19 +84,125 @@ export class SummaryPage {
                         pointRadius: 1,
                         pointHitRadius: 10,
                         data: [65, 59, 80, 81, 56, 55, 40],
+                        // scaleShowLabels: false,
+                        // scaleLineColor: 'transparent',
                         spanGaps: false,
+                        
                     }
                 ]
+            },
+            options: {
+                scales:
+                {
+                    yAxes: [{
+                        gridLines : {
+                            display : false
+                        },
+                        angleLines :{
+                            display : false,
+                        }
+                    }],
+                    xAxes:[{
+                        gridLines:{
+                            display : false
+                        }
+                    }]
+                }
             }
  
         });
     }
 
-    showMonth(){
-
+    getDescription(type){
+        var desc =[];
+        if(type==="Heartrate"){
+            desc['title'] = "อัตราการเต้นของหัวใจ คืออะไร";
+            desc['t_desc'] = "อัตราการเต้นของหัวใจ คือ ความเร็วในการบีบตัวของหัวใจในช่วงระยะเวลาหนึ่งๆ โดยทั่วไปนิยมใช้หน่วย \"ครั้งต่อนาที(BPM)\"";
+        }else if(type==="Bloodpressure"){
+            desc['title'] = "ความดันโลหิต คืออะไร";
+            desc['t_desc'] = "asd";
+        }else if(type==="Weight"){
+            desc['title'] = "น้ำหนัก คืออะไร";
+            desc['t_desc'] = "asdsad";
+        }else if(type==="Height"){
+            desc['title'] = "ความสูง คืออะไร";
+            desc['t_desc'] = "asdasd";
+        }else if(type==="Temperature"){
+            desc['title'] = "อุณหภูมิร่างกาย คืออะไร";
+            desc['t_desc'] = "dasdas";
+        }
+        return desc;
     }
 
-    showWeek(){
+    isTheSameDate(input){
+        var now = new Date();
+        // console.log(now);
+        var data_date = new Date(input);
+        // console.log(data);
+        let date : string;
+        if(now.toDateString() === data_date.toDateString()){
+            date = "Today, " + data_date.toISOString().substr(11,8);
+        }else{
+            date = this.getFormalYMD(data_date);
+        }
+        return date;
+    }
 
+    getFormalYMD(input : Date){
+        var str = input.toISOString();
+        return str.substr(8,2)+"/"+str.substr(5,2)+ "/" + (parseInt(str.substr(0,4))+543);
+    }
+
+    getAMorPMTime(input : Date){
+        // console.log(input);
+        var hours = input.getHours();
+        // console.log(hours);
+        var mid='AM';
+        if(hours==0){ //At 00 hours we need to show 12 am
+            hours=12;
+        }else if(hours>12){
+            hours=hours%12;
+            mid='PM';
+        }
+        return hours + ":" + input.getMinutes() + " " + mid;
+    }
+
+
+    getData(uid, type){
+ 
+        return new Promise((resolve, reject) => {
+ 
+            let headers = new Headers();
+            // headers.append('Content-Type', 'application/json');
+            headers.append('user_id', uid);
+            headers.append('type' ,  type);
+            // headers.append('authorization', 'Basic ' + new Buffer(credentials.email + ':' + credentials.password).toString('base64'));
+            this.http.get(Config.AUTH_SERVER+'/api/data/latest',  {headers: headers})
+                .subscribe(res => {
+                // console.log(res);
+                    resolve(res.json());
+                }, (err) => {
+                    reject(err);
+            });
+        });
+    }
+
+    changePeriod(period){
+        this.period = period;
+        // console.log(period);
+    }
+
+    changeMode(mode){
+        this.mode = mode;
+        if(mode == "desc"){
+            this.description = this.getDescription(this.title);
+        }
+    }
+
+    showMenu(myEvent){
+        let popover = this.popoverCtrl.create(LinkPage);
+        popover.present({
+            ev: myEvent
+        });
     }
 }

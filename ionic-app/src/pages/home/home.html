@@ -3,6 +3,7 @@
   <ion-buttons end>
     <button ion-button icon-only (click)="showMenu($event)">
       <ion-icon name="menu"></ion-icon>
+      <!--<ion-avatar><img class="profilepic" src="assets/2.jpg"></ion-avatar>-->
     </button>
   </ion-buttons>
   <ion-title>
@@ -11,17 +12,98 @@
  </ion-navbar>
 </ion-header>
  
-<ion-content color="f7f7f7">
+<ion-content color="#f7f7f7">
+
+    <ion-row>
+      <ion-col col-md-6 (click)="goSummaryPage('Weight')">
+        <ion-card class="roundness_card">
+          <img src="assets/icon/weight.png" >
+          <!--<div class="card-title">Weight</div>-->
+        </ion-card>
+      </ion-col>
+      <ion-col col-md-6 (click)="goSummaryPage('Heartrate')"> 
+        <ion-card class="roundness_card">
+          <img src="assets/icon/hr.png" >
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-md-6 (click)="goSummaryPage('Temperature')"> 
+        <ion-card class="roundness_card">
+          <img src="assets/icon/temp.png" >
+        </ion-card>
+      </ion-col>
+      <ion-col col-md-6 (click)="goSummaryPage('Height')">
+        <ion-card class="roundness_card">
+          <img src="assets/icon/height.png" >
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-md-6 (click)="goSummaryPage('Bloodpressure')">
+        <ion-card class="roundness_card">
+          <img src="assets/icon/bp.png" >
+        </ion-card>
+      </ion-col>
+      <ion-col col-md-6 (click)="goProfilePage()">
+        <ion-card class="roundness_card">
+          <img src="assets/1.jpg" class="profile" >
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
   
-  <ion-card>
-    <ion-item>
+  <!--<ion-card>
+    <ion-item (click)="goProfilePage()">
       <ion-avatar item-start>
         <img src="assets/2.jpg">
       </ion-avatar>
       <h2 item-end>{{name}}</h2>
     </ion-item>
 
-    <!--<img src="assets/icon/heart.gif">-->
+  </ion-card>
+  <ion-card>
+
+    <ion-item (click)="goSummaryPage('Weight')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/weight.png"></ion-img></ion-icon>
+      <h2>น้ำหนัก</h2>
+      <h3>weight</h3>
+      <h2 item-end>{{weight}} {{w_unit}}</h2>
+    </ion-item>
+
+    <ion-item (click)="goSummaryPage('Height')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/height.png"></ion-img></ion-icon>
+      <h2>ส่วนสูง</h2>
+      <h3>Height</h3>
+      <h2 item-end>{{height}} {{h_unit}}</h2>
+    </ion-item>
+
+    <ion-item (click)="goSummaryPage('Heart rate')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/hr.png"></ion-img></ion-icon>
+      <h2>อัตราการเต้นของหัวใจ</h2>
+      <h3>Heart rate</h3>
+      <h2 item-end>{{heartrate}} {{hr_unit}}</h2>
+    </ion-item>
+
+    <ion-item (click)="goSummaryPage('Blood Pressure')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/bp.png"></ion-img></ion-icon>
+      <h2>ความดันโลหิต</h2>
+      <h3>Blood pressure</h3>
+      <h2 item-end>{{bp_h}}/{{bp_l}} {{bp_unit}}</h2>
+    </ion-item>
+
+    <ion-item (click)="goSummaryPage('Temperature')">
+      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/temp.png"></ion-img></ion-icon>
+      <h2>อุณหภูมิร่างกาย</h2>
+      <h3>Temperature</h3>
+      <h2 item-end>{{temperature}} °{{t_unit}}</h2>
+    </ion-item>
+
+  </ion-card>-->
+ 
+</ion-content>
+
+ <!--<img src="assets/icon/heart.gif">-->
 <!--
     <ion-card-content>
       <p>Birth date : {{birth_date}}</p>
@@ -47,48 +129,7 @@
       </ion-col>
     </ion-row>-->
 
-  </ion-card>
-  <ion-card>
-
-    <ion-item (click)="goPage('Weight')">
-      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/weight.png"></ion-img></ion-icon>
-      <h2>น้ำหนัก</h2>
-      <h3>weight</h3>
-      <h2 item-end>56 kg</h2>
-    </ion-item>
-
-    <ion-item (click)="goPage('Height')">
-      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/height.png"></ion-img></ion-icon>
-      <h2>ส่วนสูง</h2>
-      <h3>Height</h3>
-      <h2 item-end>172 cm</h2>
-    </ion-item>
-
-    <ion-item (click)="goPage('Heart rate')">
-      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/hr.png"></ion-img></ion-icon>
-      <h2>อัตราการเต้นของหัวใจ</h2>
-      <h3>Heart rate</h3>
-      <h2 item-end>50 bpm</h2>
-    </ion-item>
-
-    <ion-item (click)="goPage('Blood Pressure')">
-      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/bp.png"></ion-img></ion-icon>
-      <h2>ความดันโลหิต</h2>
-      <h3>Blood pressure</h3>
-      <h2 item-end>120/80 mm Hg</h2>
-      <!--<h2 class="align_right">80 mm Hg</h2>-->
-    </ion-item>
-
-    <ion-item (click)="goPage('Temperature')">
-      <ion-icon item-start><ion-img width="50" height="50" src="assets/icon/temp.png"></ion-img></ion-icon>
-      <h2>อุณหภูมิร่างกาย</h2>
-      <h3>Temperature</h3>
-      <h2 item-end>37 °C</h2>
-    </ion-item>
-
-  </ion-card>
-
-  <!--<ion-list no-lines>
+<!--<ion-list no-lines>
  
     <ion-item-sliding *ngFor="let todo of todos">
  
@@ -105,5 +146,3 @@
     </ion-item-sliding>
  
   </ion-list>-->
- 
-</ion-content>

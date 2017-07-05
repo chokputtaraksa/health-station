@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { NavController } from 'ionic-angular';
+// import { NavController } from 'ionic-angular';
 // import { ScreenOrientation } from 'ionic-native'
 import {Http} from '@angular/http';
 import * as io from "socket.io-client";
