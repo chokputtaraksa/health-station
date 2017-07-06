@@ -1,7 +1,7 @@
 
 
 | Method  | Path | Header | Usage |
-| ------------- | ------------- |--------------------------------------------------|
+| ------------- | ------------- |-------------------------------|--------------------------------------------------|
 | POST | \<serverURL:port\>/api/data/save/  |  | To save health data to MongoDB |
 | GET  | \<serverURL:port\>/api/data/allLatest/  |  | To get latest data of all health data types |
 | GET  | \<serverURL:port\>/api/data/period/ |  | To get healtdata between 2 period of time |
