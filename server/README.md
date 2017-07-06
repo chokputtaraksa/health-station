@@ -11,9 +11,9 @@
 | GET  | \<serverURL:port\>/api/auth/protected/ | Authorization:\<JWT_token\> | To check JWT token if expired or not |
 
 
-**user_id** : user id that u got from system
-**period**  : define the period that you want to get the data. Have 2 period **week** and **month** 
-**type**    : type of health data **Heartrate, Bloodpressure, Temperature, Weight, Height**
-**register-type** : use to define how user want to register with the system. **idcard, fingerprint**
-**authorization\<BasicAuth\>** : BasicAuth is simple authen in format of Base64 string
-**authorization\<JWT_Token\>** : JWT_token is long string. Use to check if are you already log in or not.
+**user_id** : user id that u got from system<br/>
+**period**  : define the period that you want to get the data. Have 2 period **week** and **month** <br/>
+**type**    : type of health data **Heartrate, Bloodpressure, Temperature, Weight, Height**<br/>
+**register-type** : use to define how user want to register with the system. **idcard, fingerprint**<br/>
+**authorization\<BasicAuth\>** : BasicAuth is simple authen in format of Base64 string<br/>
+**authorization\<JWT_Token\>** : JWT_token is long string. Use to check if are you already log in or not.<br/>
