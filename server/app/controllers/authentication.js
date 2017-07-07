@@ -1,7 +1,8 @@
 var jwt = require('jsonwebtoken');  
 // var User = require('../models/user');
-var User2 = require('../models/user2');
+var User = require('../models/user');
 var authConfig = require('../../config/auth');
+var Role = require('../models/role');
  
 function generateToken(user){
     return jwt.sign(user, authConfig.secret, {
@@ -30,51 +31,59 @@ exports.login = function(req, res, next){
  
 }
 
-exports.register2 = function(req, res, next){ // register 
+exports.register = function(req, res, next){ // register 
     var info = req.body;
+    var type = req.headers['register-type'];
     var idNumber = info.idNumber;
     if(!idNumber){
         // console.log("mai mee id number");
         return res.status(422).send({error: 'Missing Id number'}); 
     }
-
-    User2.findOne({idNumber: idNumber}, function(err, existingUser){
-        if(err){
-            // console.log(err);
-            return next(err);
-        }
- 
-        if(existingUser){
-            // console.log("mee u law");
-            return res.status(422).send({error: 'this id number is already exist'});
-        }
- 
-        var user = new User2({
-            id_card:{
-                thaiFullName : info.thaiFullName,
-                engFullName : info.engFullName,
-                birthOfDate : info.birthOfDate,
-                address : info.address,
-                idNumber : info.idNumber,
-                gender: info.gender
-            }
-        });
- 
-        user.save(function(err, user){
- 
-            if(err){
-                return next(err);
-            }
- 
-            var userInfo = setUserInfo(user);
- 
-            res.status(201).json({
-                token: 'JWT ' + generateToken(userInfo),
-                user: userInfo
+    if(type=="idcard"){
+        if(info.thaiFullName && info.engFullName && info.birthOfDate && info.address && info.idNumber && info.gender){
+            User.findOne({idNumber: idNumber}, function(err, existingUser){
+                if(err){
+                    // console.log(err);
+                    return next(err);
+                }
+        
+                if(existingUser){
+                    // console.log("mee u law");
+                    return res.status(422).send({error: 'this id number is already exist'});
+                }
+                
+                var user = new User({
+                    id_card:{
+                        thaiFullName : info.thaiFullName,
+                        engFullName : info.engFullName,
+                        birthOfDate : info.birthOfDate,
+                        address : info.address,
+                        idNumber : info.idNumber,
+                        gender: info.gender
+                    }
+                });
+        
+                user.save(function(err, user){
+        
+                    if(err){
+                        return next(err);
+                    }
+        
+                    var userInfo = setUserInfo(user);
+        
+                    res.status(201).json({
+                        token: 'JWT ' + generateToken(userInfo),
+                        user: userInfo
+                    })
+        
+                });
             })
- 
-        });
-    })
+        }else{
+            return res.status(406).send({error : 'Missing field in json'});
+        }
+    }else{
+        return res.status(422).send({error: 'Missing Register-Type'});
+    }
 }
  
 // exports.register = function(req, res, next){ // register 

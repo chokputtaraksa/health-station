@@ -1,6 +1,6 @@
 var passport = require('passport');
+
 var User = require('../app/models/user');
-var User2 = require('../app/models/user2');
 var config = require('./auth');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -55,7 +55,7 @@ var basicOptions = {
 var basicLogin = new BasicStrategy(basicOptions, function(email, password, done){
     // console.log(email);
     // console.log(password);
-    User2.findOne({
+    User.findOne({
         "id_card.idNumber": email
     }, function(err, user){
  
@@ -82,7 +82,7 @@ var jwtOptions = {
  
 var jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
  
-    User2.findById(payload._id, function(err, user){
+    User.findById(payload._id, function(err, user){
  
         if(err){
             return done(err, false);
