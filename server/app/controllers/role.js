@@ -1,4 +1,4 @@
-// var Role = require('../models/role');
+var Role = require('../models/role');
  
 exports.getRoles = function(req, res, next){
  

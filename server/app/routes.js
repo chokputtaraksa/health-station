@@ -1,7 +1,7 @@
 var AuthenticationController = require('./controllers/authentication'),  
     // TodoController = require('./controllers/todos'),  
     DataController = require('./controllers/healthData');
-    RoleController = require('./controllers/e-careRole');
+    RoleController = require('./controllers/role');
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
