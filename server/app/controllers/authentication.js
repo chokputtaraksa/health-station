@@ -85,56 +85,6 @@ exports.register = function(req, res, next){ // register
         return res.status(422).send({error: 'Missing Register-Type'});
     }
 }
- 
-// exports.register = function(req, res, next){ // register 
-//     var basicAuth = req.headers['authorization'];
-//     var plain_auth = Buffer.from(basicAuth.substr(6, basicAuth.length-6), 'base64').toString();
-//     var creds = plain_auth.split(':');
-//     var email = creds[0];
-//     var password = creds[1];
-//     var role = req.body.role;
-//     if(!email){
-//         return res.status(422).send({error: 'You must enter an email address'});
-//     }
- 
-//     if(!password){
-//         return res.status(422).send({error: 'You must enter a password'});
-//     }
- 
-//     User.findOne({email: email}, function(err, existingUser){
- 
-//         if(err){
-//             return next(err);
-//         }
- 
-//         if(existingUser){
-//             return res.status(422).send({error: 'That email address is already in use'});
-//         }
- 
-//         var user = new User({
-//             email: email,
-//             password: password
-//         });
-//         // console.log(user);
- 
-//         user.save(function(err, user){
- 
-//             if(err){
-//                 return next(err);
-//             }
- 
-//             var userInfo = setUserInfo(user);
-//             // console.log(userInfo);
-//             res.status(201).json({
-//                 token: 'JWT ' + generateToken(userInfo),
-//                 user: userInfo
-//             })
- 
-//         });
- 
-//     });
-// }
- 
 exports.roleAuthorization = function(roles){ // manage user role
  
     return function(req, res, next){

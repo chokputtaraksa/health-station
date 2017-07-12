@@ -23,7 +23,14 @@ var UserSchema = new mongoose.Schema({
         gender: {
             type: String
         }
-    }
+    },
+    patient_list :[
+        {
+            pid : {
+                type:String,
+            }
+        }
+    ]
 }, {
     timestamps: true
 });
