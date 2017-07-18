@@ -17,7 +17,8 @@ function setUserInfo(request){
         engFullName : request.id_card.engFullName,
         birthOfDate : request.id_card.birthOfDate,
         address : request.id_card.address,
-        gender: request.id_card.gender
+        gender: request.id_card.gender,
+        role : request.role
     };
 }
  
@@ -60,7 +61,8 @@ exports.register = function(req, res, next){ // register
                         address : info.address,
                         idNumber : info.idNumber,
                         gender: info.gender
-                    }
+                    },
+                    role : info.role
                 });
         
                 user.save(function(err, user){

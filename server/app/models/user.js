@@ -33,6 +33,11 @@ var UserSchema = new mongoose.Schema({
         key2 : {
             type: String
         }
+    },
+    role : {
+        type: String,
+        enum: ['doctor', 'patient'],
+        default: 'patient'
     }
 },{
         timestamps: true

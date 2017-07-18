@@ -1,0 +1,31 @@
+.ios, .md {
+ 
+    home-page {
+ 
+    }
+
+    .roundness_card{
+        border-radius : 25px;
+        // height : 100%;
+        // overflow:hidden;
+        // flex: 1 1 auto;
+        // width : 150px;
+        // height : 150px;
+    }
+    
+    .card-title{
+        position: absolute;
+        top: 36%;
+        font-size: 2.0em;
+        width: 100%;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .aling_left{
+        text-align: left;
+    }
+    .aling_right{
+        text-align: right;
+    }
+}
