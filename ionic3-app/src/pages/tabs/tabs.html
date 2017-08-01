@@ -1,7 +1,20 @@
 <!-- pages/tabs/tabs.html -->
-<ion-tabs>
+  <ion-header>
+   <ion-navbar color="primary">
+    <ion-title style="text-align:center; margin-right : 7%">
+      Summary {{param.type}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showMenu($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>   
+
+<ion-tabs >
   <!-- Indicates with tabsPage should handle each tab here -->
-  <ion-tab [root]="tab1Root" tabTitle="Dashboard" tabIcon="cog"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Data" tabIcon="chatbubbles"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="History" tabIcon="pulse"></ion-tab>
+  <ion-tab [root]="tab1Root" [rootParams]="param" tabTitle="Week" tabIcon="cog" tabsHideOnSubPages="true"></ion-tab>
+  <ion-tab [root]="tab2Root" [rootParams]="param" tabTitle="Month" tabIcon="chatbubbles" tabsHideOnSubPages="true"></ion-tab> 
+  <!-- <ion-tab [root]="tab3Root" tabTitle="Month" tabIcon="pulse"></ion-tab> --> 
 </ion-tabs>

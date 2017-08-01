@@ -1,0 +1,75 @@
+
+  <ion-header>
+    <ion-navbar color="primary">
+    </ion-navbar>
+
+    <div style="margin-top:0%; background-color:white">
+      <ion-segment [(ngModel)]="whichTime_str">
+        <ion-segment-button value="week1">
+          Week1
+        </ion-segment-button>
+        <ion-segment-button value="week2">
+          Week2
+        </ion-segment-button>
+        <ion-segment-button value="week3">
+          Week3
+        </ion-segment-button>
+        <ion-segment-button value="week4">
+          Week4
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-header>   
+  <ion-content [class.hr-content]="title=='Heartrate'" [class.t-content]="title=='Temperature'"
+               [class.bp-content]="title=='Bloodpressure'" [class.h-content]="title=='Height'"
+               [class.w-content]="title=='Weight'">  
+    <ion-card>
+      <!-- <ion-card-header>
+        {{period}}
+      </ion-card-header> -->
+      <ion-card-content>
+        <canvas #lineCanvas></canvas>
+      </ion-card-content>
+      
+    </ion-card>
+
+    <ion-card>
+      <div style="margin-top:0%; background-color:white">
+        <ion-segment [(ngModel)]="mode">
+          <ion-segment-button value="today">
+            Today
+          </ion-segment-button>
+          <ion-segment-button value="desc" >
+            Description
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      <ion-item *ngIf="mode=='today'">
+        <button class="full-btn-size" *ngIf="todayData">
+          <label item-start>{{title}}</label>
+          <label item-end *ngIf="title=='Heartrate'">{{todayData.heart_rate.value}}</label>
+          <label item-end *ngIf="title=='Heartrate'">{{todayData.heart_rate.unit}}</label>
+          <label item-end *ngIf="title=='Bloodpressure'">{{todayData.systolic_blood_pressure.value}}/{{todayData.diastolic_blood_pressure.value}}</label>
+          <label item-end *ngIf="title=='Bloodpressure'">{{todayData.diastolic_blood_pressure.unit}}</label>
+          <label item-end *ngIf="title=='Weight'">{{todayData.body_weight.value}}</label>
+          <label item-end *ngIf="title=='Weight'">{{todayData.body_weight.unit}}</label>
+          <label item-end *ngIf="title=='Height'">{{todayData.body_height.value}}</label>
+          <label item-end *ngIf="title=='Height'">{{todayData.body_height.unit}}</label>
+          <label item-end *ngIf="title=='Temperature'">{{todayData.body_temperature.value}}</label>
+          <label item-end *ngIf="title=='Temperature'">{{todayData.body_temperature.unit}}</label>
+          <label>{{date_string}}</label>
+        </button>
+        <button class="full-btn-size" *ngIf="!todayData">
+          <label>Do not have any data now.</label>
+        </button>
+      </ion-item>
+      <ion-item *ngIf="mode=='desc' && description">
+        <h1 >{{description.title}}</h1>
+        <h3 text-wrap>{{description.t_desc}}</h3>
+      </ion-item>
+      <ion-item *ngIf="mode=='desc' && description">
+        <button>รายละเอียดเพิ่มเติม</button>
+      </ion-item>
+    </ion-card>
+  
+  </ion-content>

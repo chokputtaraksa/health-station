@@ -1,31 +1,45 @@
 .ios, .md {
  
-    home-page {
- 
-    }
+    doctor-page {
 
-    .roundness_card{
-        border-radius : 25px;
-        // height : 100%;
-        // overflow:hidden;
-        // flex: 1 1 auto;
-        // width : 150px;
-        // height : 150px;
-    }
-    
-    .card-title{
-        position: absolute;
-        top: 36%;
-        font-size: 2.0em;
-        width: 100%;
-        font-weight: bold;
-        color: #fff;
-    }
+        ion-content{
+            // background-image: url('../assets/background/mascot.jpeg');
+            // background-color:lightskyblue; 
+        }
 
-    .aling_left{
-        text-align: left;
-    }
-    .aling_right{
-        text-align: right;
+        .card-title{
+            position: absolute;
+            top: 36%;
+            font-size: 2.0em;
+            width: 100%;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .aling_left{
+            text-align: left;
+        }
+        .aling_right{
+            text-align: right;
+        }
+        .header_mid{
+            text-align: center;
+            margin : 5% 0% 0% 0%;
+        }
+
+        .picture_mid{
+            margin : 0% 20% 0% 20%;
+        }
+
+        .item-avatar  img{     
+            width:100% !important;  
+            height : 100% !important;  
+            max-width: 100px !important;  
+            max-height: 100px !important;  
+        }
+        .list .item-avatar{ 
+            width: 50% !important; 
+            height : 50% !important;
+        }
     }
 }

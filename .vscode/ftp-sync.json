@@ -15,6 +15,7 @@
         "\\token.js",
         "\\device-access",
         "\\Mockup",
-        "\\ionic-app"
+        "\\node_modules",
+        "\\ionic3-app"
     ]
 }

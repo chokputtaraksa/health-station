@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Profile</ion-title>
+  <ion-navbar color="primary">
+    <ion-title class="header-center">Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,36 +15,128 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-item>
-      <ion-avatar class="align-center">
+    <ion-item class="list">
+      <ion-avatar class="item-avatar align-center">
         <img src="assets/1.jpg">
       </ion-avatar>
     </ion-item>
-    
-    <ion-item>
-      <h2 item-start>ชื่อ-นามสกุล</h2>
-      <h2 item-end>{{thai_name}}</h2>
+    <ion-item class="align-center">
+      <h1 style="margin-top: 0.5%;">{{thai_name}}</h1>
+      <h2 >{{eng_name}}</h2>
     </ion-item>
-    <ion-item>
-      <h2 item-start>Name</h2>
-      <h2 item-end>{{eng_name}}</h2>
-    </ion-item>
-    <ion-item>
-      <h2 item-start>วัน/เดือน/ปี เกิด</h2>
-      <h2 item-end>{{birth_date}}</h2>
-    </ion-item>
-    <ion-item>
-      <h2 item-start>อายุ</h2>
-      <h2 item-end>{{yearsold}}</h2>
-    </ion-item>
-    <ion-item>
-      <h2 item-start>เพศ</h2>
-      <h2 item-end>{{gender}}</h2>
-    </ion-item>
-    <ion-item>
-      <h2 item-start>ที่อยู่</h2>
-      <h2 item-end>{{address}}</h2>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-lg-5>
+          <ion-label class="align-center">เพศ</ion-label>
+        </ion-col>
+        <ion-col col-lg-7 >
+          <ion-label class="align-center">{{gender}}</ion-label>
+        </ion-col>
+      </ion-row>
+       <ion-row>
+        <ion-col col-lg-5>
+          <ion-label class="align-center">อายุ</ion-label>
+        </ion-col>
+        <ion-col col-lg-7 >
+          <ion-label class="align-center">{{yearsold}}</ion-label>
+        </ion-col>
+      </ion-row>
+       <ion-row>
+        <ion-col col-lg-5>
+          <ion-label class="align-center">วัน/เดือน/ปี เกิด</ion-label>
+        </ion-col>
+        <ion-col col-lg-7 >
+          <ion-label class="align-center">{{birth_date}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-lg-5>
+          <ion-label class="align-center black-font">เบอร์โทรติดต่อ</ion-label>
+        </ion-col>
+        <ion-col col-lg-7 *ngIf="!editable">
+          <ion-label text-wrap class="black-font align-center">{{phone}}</ion-label>
+        </ion-col> 
+        <ion-col col-lg-7 *ngIf="editable">
+          <ion-input class="black-font" text-center [(ngModel)]="phone" placeholder="เบอร์โทรศัพท์"></ion-input> 
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-lg-5>
+          <ion-label class="align-center black-font">อีเมลล์</ion-label>
+        </ion-col>
+        <ion-col col-lg-7 *ngIf="!editable">
+          <ion-label text-wrap class="black-font align-center">{{email}}</ion-label>
+        </ion-col> 
+        <ion-col col-lg-7 *ngIf="editable">
+          <ion-input class="black-font" text-center [(ngModel)]="email" placeholder="อีเมลล์"></ion-input> 
+        </ion-col>
+      </ion-row>
+       <ion-row>
+        <ion-col col-lg-5>
+          <ion-label class="align-center black-font">กรุ๊ปเลือด</ion-label>
+        </ion-col>
+        <ion-col col-lg-7 *ngIf="!editable">
+          <ion-label text-wrap class="black-font align-center">{{bloodtype}}</ion-label>
+        </ion-col>
+        <ion-col col-lg-7 *ngIf="editable">
+          <ion-item>
+            <ion-select [(ngModel)]="bloodtype" class="black-font my-select" interface="popover">
+              <ion-option value="-">-</ion-option>
+              <ion-option value="A">A</ion-option>
+              <ion-option value="B">B</ion-option>
+              <ion-option value="AB">AB</ion-option>
+              <ion-option value="O">O</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col col-lg-5>
+          <ion-label class="align-center black-font">โรคประจำตัว</ion-label>
+        </ion-col>
+         <ion-col col-lg-7 *ngIf="!editable">
+          <ion-label text-wrap class="black-font align-center">{{disease}}</ion-label>
+        </ion-col> 
+        <ion-col col-lg-7 *ngIf="editable">
+          <ion-input class="black-font" text-center [(ngModel)]="disease" placeholder="โรคประจำตัว"></ion-input> 
+        </ion-col>
+      </ion-row>
 
+      <ion-row style="margin-bottom:3%;"> 
+        <ion-col col-lg-5>
+          <ion-label class="align-center black-font">แพ้ยา</ion-label>
+        </ion-col>
+        <ion-col col-lg-7 *ngIf="!editable">
+          <ion-label text-wrap class="black-font align-center">{{drugallergy}}</ion-label>
+        </ion-col> 
+        <ion-col col-lg-7 *ngIf="editable">
+          <ion-input class="black-font" text-center [(ngModel)]="drugallergy" placeholder="แพ้ยา"> </ion-input> 
+        </ion-col>
+      </ion-row>
+      
+      <ion-item *ngIf="editable" style="text-align:center">
+        <button class="save-button" (click)="save()">Save</button>
+        <button class="cancel-button" (click)="cancel()">Cancel</button>
+      </ion-item>
+    </ion-grid>
   </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <label item-start class="align-center">Doctor agreement</label>
+      <button item-end *ngIf="!showAgreement" (click)="showDoctorAgreement()"><ion-icon name="add"></ion-icon></button>
+      <button item-end *ngIf="showAgreement" (click)="showDoctorAgreement()"><ion-icon name="remove"></ion-icon></button>
+    </ion-item>
+    <ion-list *ngIf="showAgreement">
+      <ion-item>
+        <ion-label>นายแพทย์ ปุณณวิชญ์ จิตเจือจุณ</ion-label>
+        <ion-toggle (ionChange)="agreeToggle($event)" ></ion-toggle>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-fab right top *ngIf="!editable">
+    <button ion-fab color="primary" (click)="edit()" ><ion-icon name="create"></ion-icon></button>
+  </ion-fab>
 </ion-content>

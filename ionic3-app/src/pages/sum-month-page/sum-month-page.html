@@ -1,26 +1,23 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      Summary {{title}}
-    </ion-title>
-    <ion-buttons end>
-    <button ion-button icon-only (click)="showMenu($event)">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-  </ion-buttons>
+   <ion-navbar color="primary">
   </ion-navbar>
-</ion-header>
- 
+
+  <div style="margin-top:0%; background-color:white">
+    <ion-segment [(ngModel)]="whichTime_str">
+      <ion-segment-button value="may">
+        May
+      </ion-segment-button>
+      <ion-segment-button value="june">
+        June
+      </ion-segment-button>
+      <ion-segment-button value="july">
+        July
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+</ion-header>   
 <ion-content>  
     <ion-card>
-      <ion-item>
-      <button class="half-btn-size" (click)="changePeriod('Week')">
-        <label >Week</label>
-      </button>
-      <button class="half-btn-size" (click)="changePeriod('Month')">
-        <label>Month</label>
-      </button>
-    </ion-item>
     <!-- <ion-card-header>
       {{period}}
     </ion-card-header> -->
@@ -32,12 +29,16 @@
 
   <ion-card>
     <ion-item>
-      <button class="half-btn-size" (click)="changeMode('today')">
-        <label >Today</label>
-      </button>
-      <button class="half-btn-size" (click)="changeMode('desc')">
-        <label>Description</label>
-      </button>
+      <div style="margin-top:0%; background-color:white">
+        <ion-segment [(ngModel)]="mode">
+          <ion-segment-button value="today">
+            Today
+          </ion-segment-button>
+          <ion-segment-button value="desc" >
+            Description
+          </ion-segment-button>
+        </ion-segment>
+      </div>
     </ion-item>
     <ion-item *ngIf="mode=='today'">
       <button class="full-btn-size" *ngIf="todayData">
@@ -52,7 +53,7 @@
         <label item-end *ngIf="title=='Height'">{{todayData.body_height.unit}}</label>
         <label item-end *ngIf="title=='Temperature'">{{todayData.body_temperature.value}}</label>
         <label item-end *ngIf="title=='Temperature'">{{todayData.body_temperature.unit}}</label>
-        <label>{{date}}</label>
+        <label>{{date_string}}</label>
       </button>
       <button class="full-btn-size" *ngIf="!todayData">
         <label>Do not have any data now.</label>

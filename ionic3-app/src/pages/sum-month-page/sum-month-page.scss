@@ -1,6 +1,6 @@
 .ios, .md {
  
-    page-summary-page {
+        sum-month-page {
  
         .scroll-content {
             background-color: map-get($colors, light);
@@ -15,10 +15,10 @@
             height : 20%
         }
 
-        .half-btn-size:hover {
-            background-color:black;
-            color : white;
-        }
+        // .half-btn-size:hover {
+        //     background-color:black;
+        //     color : white;
+        // }
 
         .full-btn-size {
             width : 100%;
@@ -27,9 +27,10 @@
         }
 
         .align-center{
-            position: absolute;
+            text-align: center;
             align-items: center;
         }
+
     }
  
 }

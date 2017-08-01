@@ -25,15 +25,13 @@ module.exports = function(app){
     // authRoutes.post('/register', AuthenticationController.register2);
     authRoutes.get('/login', requireLoginBasic, AuthenticationController.login);
  
-    authRoutes.get('/protected', requireAuth, function(req, res){
-        res.send({ content: 'Success'});
-    });
+    authRoutes.get('/protected', requireAuth, AuthenticationController.protected);
  
     // Data Routes
     apiRoutes.use('/data', dataRoutes);
     dataRoutes.post('/save', DataController.insertData);
-    dataRoutes.get('/allLestest', DataController.getLatestData);
-    dataRoutes.get('/period', DataController.findDataByType)
+    dataRoutes.get('/allLatest', DataController.getLatestData);
+    dataRoutes.get('/period', DataController.findPeriodDataByType)
     dataRoutes.get('/latest', DataController.findLatestDataByType)
 
     // Role Routes

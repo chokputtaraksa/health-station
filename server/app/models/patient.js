@@ -34,9 +34,43 @@ var UserSchema = new mongoose.Schema({
             type: String
         }
     },
+    about : {
+        phone:{
+            type : String,
+            default: '-'
+        },
+        email:{
+            type : String,
+            default: '-'
+        },
+        bloodtype : {
+            type : String,
+            default: '-'
+        },
+        disease : {
+            type : String,
+            default: '-'
+        },
+        drugallergy : {
+            type : String,
+            default: '-'
+        },
+        educated:{
+            type : String,
+            default: '-'
+        },
+        workplace :{
+            type : String,
+            default: '-'
+        },
+        specialist:{
+            type : String,
+            default: '-'
+        }
+    },
     role : {
         type: String,
-        enum: ['doctor', 'patient'],
+        enum: ['doctor', 'patient', 'provider'],
         default: 'patient'
     }
 },{

@@ -1,12 +1,12 @@
 var jwt = require('jsonwebtoken');  
 // var User = require('../models/user');
-var User = require('../models/user');
+var User = require('../models/patient');
 var authConfig = require('../../config/auth');
 var Role = require('../models/role');
  
 function generateToken(user){
     return jwt.sign(user, authConfig.secret, {
-        expiresIn: 1000
+        expiresIn: 5000
     });
 }
  
@@ -18,13 +18,25 @@ function setUserInfo(request){
         birthOfDate : request.id_card.birthOfDate,
         address : request.id_card.address,
         gender: request.id_card.gender,
-        role : request.role
+        role : request.role,
+        bloodtype : request.about.bloodtype,
+        disease : request.about.disease,
+        drugallergy : request.about.drugallergy,
+        educated : request.about.educated,
+        workplace : request.about.workplace,
+        specialist : request.about.specialist
     };
+}
+
+exports.protected = function(req, res, next){
+    var userInfo = setUserInfo(req.user);
+    res.status(200).json({
+        role: userInfo.role
+    });
 }
  
 exports.login = function(req, res, next){
     var userInfo = setUserInfo(req.user);
-    // console.log(userInfo);
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
         user: userInfo
@@ -110,5 +122,8 @@ exports.roleAuthorization = function(roles){ // manage user role
         });
  
     }
- 
+}
+
+exports.saveAbout = function(){
+
 }

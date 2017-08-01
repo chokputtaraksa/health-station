@@ -1,29 +1,82 @@
-<ion-header>
+ <ion-header>
  <ion-navbar color="primary">
   <ion-buttons end>
     <button ion-button icon-only (click)="showMenu($event)">
       <ion-icon name="menu"></ion-icon>
-      <!--<ion-avatar><img class="profilepic" src="assets/2.jpg"></ion-avatar>-->
     </button>
   </ion-buttons>
-  <ion-title>
-    Dashboard
+  <ion-title class="header_mid" style="font-size:110%">
+    Healthios
   </ion-title>
  </ion-navbar>
-</ion-header>
+</ion-header> 
  
-<ion-content color="#f7f7f7">
-
+<ion-content>
     <ion-row>
+      <ion-col col-md-3>
+        <ion-item class="list" style="background-color: transparent;">
+          <ion-avatar class="item-avatar picture_mid">
+            <img src="assets/1.jpg">
+          </ion-avatar>
+        </ion-item> 
+      </ion-col>
+      <ion-col col-md-9 class="header_mid">
+        <label>{{name}}</label>
+      </ion-col>
+    </ion-row>
+    <ion-card style="height:75%">
+       <div style="margin-top:0%; background-color:white">
+        <ion-segment [(ngModel)]="segment1">
+          <ion-segment-button value="noti">
+            Notification
+          </ion-segment-button>
+          <ion-segment-button value="p_list">
+            Patient list
+          </ion-segment-button>
+          <ion-segment-button value="etc" >
+            ETC
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      <ion-list *ngIf="segment1=='noti'">
+        <ion-item>
+          <ion-col col-3>
+            <ion-icon name="ribbon"></ion-icon>
+          </ion-col>
+          <label>มีคนไข้ร้องขอการดูแลจากคุณ</label>
+        </ion-item>
+      </ion-list>
+
+      <ion-searchbar
+        *ngIf="segment1=='p_list'"
+        [(ngModel)]="myInput"
+        [showCancelButton]="shouldShowCancel"
+        (ionInput)="onInput($event)"
+        (ionCancel)="onCancel($event)">
+      </ion-searchbar>
+      <ion-list *ngIf="segment1=='p_list'">
+        <ion-item (click)="goPatientInfo()">
+          <label>นายรัฐภูมิ พุทธรักษา</label>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+     <!-- <ion-item class="list" >
+      <ion-avatar class="item-avatar align-center">
+        <img src="assets/1.jpg">
+      </ion-avatar>
+      <label item-end>{{name}}</label>
+    </ion-item>  -->
+
+          <!--<div class="card-title">Weight</div>-->
+    <!-- <ion-row>
       <ion-col col-md-6 (click)="goSummaryPage('Weight')">
         <ion-card class="roundness_card">
           <img src="assets/icon/weight.png" >
-          <!--<div class="card-title">Weight</div>-->
         </ion-card>
       </ion-col>
       <ion-col col-md-6 (click)="goSummaryPage('Heartrate')"> 
         <ion-card class="roundness_card">
-          <img src="assets/icon/hr.png" >
+          <img src="assets/icon/hr2.png" >
         </ion-card>
       </ion-col>
     </ion-row>
@@ -35,7 +88,7 @@
       </ion-col>
       <ion-col col-md-6 (click)="goSummaryPage('Height')">
         <ion-card class="roundness_card">
-          <img src="assets/icon/height.png" >
+          <img src="assets/icon/height2.jpg" >
         </ion-card>
       </ion-col>
     </ion-row>
@@ -50,7 +103,7 @@
           <img src="assets/1.jpg" class="profile" >
         </ion-card>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
   
   <!--<ion-card>
@@ -102,47 +155,3 @@
   </ion-card>-->
  
 </ion-content>
-
- <!--<img src="assets/icon/heart.gif">-->
-<!--
-    <ion-card-content>
-      <p>Birth date : {{birth_date}}</p>
-    </ion-card-content>-->
-
-    <!--<ion-row>
-      <ion-col>
-        <button ion-button icon-left clear small>
-          <ion-icon name="thumbs-up"></ion-icon>
-          <div>12 Likes</div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button icon-left clear small>
-          <ion-icon name="text"></ion-icon>
-          <div>4 Comments</div>
-        </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>-->
-
-<!--<ion-list no-lines>
- 
-    <ion-item-sliding *ngFor="let todo of todos">
- 
-      <ion-item>
-        {{todo.title}}
-      </ion-item>
- 
-      <ion-item-options>
-        <button ion-button color="danger" (click)="deleteTodo(todo)">
-          <ion-icon name="trash"></ion-icon>
-          Delete
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
- 
-  </ion-list>-->

@@ -1,69 +1,69 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { Auth } from './auth';
-import { Config } from '../config'
-import 'rxjs/add/operator/map';
+// import { Injectable } from '@angular/core';
+// import { Http, Headers } from '@angular/http';
+// import { Auth } from './auth';
+// import { Config } from '../config'
+// import 'rxjs/add/operator/map';
  
-@Injectable()
-export class Todos {
+// @Injectable()
+// export class Todos {
  
-  constructor(public http: Http, public authService: Auth) {
+//   constructor(public http: Http, public authService: Auth) {
  
-  }
+//   }
  
-  getTodos(){
+//   getTodos(){
  
-    return new Promise((resolve, reject) => {
+//     return new Promise((resolve, reject) => {
  
-      let headers = new Headers();
-      headers.append('Authorization', this.authService.token);
+//       let headers = new Headers();
+//       headers.append('Authorization', this.authService.token);
  
-      this.http.get(Config.AUTH_SERVER+'/api/todos', {headers: headers})
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        });
-    });
+//       this.http.get(Config.AUTH_SERVER+'/api/todos', {headers: headers})
+//         .map(res => res.json())
+//         .subscribe(data => {
+//           resolve(data);
+//         }, (err) => {
+//           reject(err);
+//         });
+//     });
  
-  }
+//   }
  
-  createTodo(todo){
+//   createTodo(todo){
  
-    return new Promise((resolve, reject) => {
+//     return new Promise((resolve, reject) => {
  
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', this.authService.token);
+//       let headers = new Headers();
+//       headers.append('Content-Type', 'application/json');
+//       headers.append('Authorization', this.authService.token);
  
-      this.http.post(Config.AUTH_SERVER+'/api/todos', JSON.stringify(todo), {headers: headers})
-        .map(res => res.json())
-        .subscribe(res => {
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
+//       this.http.post(Config.AUTH_SERVER+'/api/todos', JSON.stringify(todo), {headers: headers})
+//         .map(res => res.json())
+//         .subscribe(res => {
+//           resolve(res);
+//         }, (err) => {
+//           reject(err);
+//         });
  
-    });
+//     });
  
-  }
+//   }
  
-  deleteTodo(id){
+//   deleteTodo(id){
  
-    return new Promise((resolve, reject) => {
+//     return new Promise((resolve, reject) => {
  
-        let headers = new Headers();
-        headers.append('Authorization', this.authService.token);
+//         let headers = new Headers();
+//         headers.append('Authorization', this.authService.token);
  
-        this.http.delete(Config.AUTH_SERVER+'/api/todos/' + id, {headers: headers}).subscribe((res) => {
-            resolve(res);
-        }, (err) => {
-            reject(err);
-        });    
+//         this.http.delete(Config.AUTH_SERVER+'/api/todos/' + id, {headers: headers}).subscribe((res) => {
+//             resolve(res);
+//         }, (err) => {
+//             reject(err);
+//         });    
  
-    });
+//     });
  
-  }
+//   }
  
-}
+// }

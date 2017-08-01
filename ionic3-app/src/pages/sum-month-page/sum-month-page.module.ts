@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SummaryPage } from './summary-page';
+import { SumMonthPage } from './sum-month-page';
 
 @NgModule({
   declarations: [
-    SummaryPage,
+    SumMonthPage,
   ],
   imports: [
-    IonicPageModule.forChild(SummaryPage),
+    IonicPageModule.forChild(SumMonthPage),
   ],
   exports: [
-    SummaryPage
+    SumMonthPage
   ]
 })
-export class SummaryPageModule {}
+export class SumMonthPageModule {}

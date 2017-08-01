@@ -1,19 +1,28 @@
 .ios, .md {
  
     login-page {
- 
-        ion-content {
-            background-image: url("../assets/background/mascot.jpeg");
+
+        ion-content  {
+            background-image: url('../assets/background/mascot.jpeg');
+            -webkit-background-image: url('../assets/1234.jpg');
+            background-repeat: no-repeat;
             background-size:cover;
+            
         }
-        // ion-content {
-        //     background-color: #f7f7f7 
-        // }
+
+        content {
+
+        }
+
+        content-md{
+
+        }
+
         scroll-content {
-            display: flex;
-            flex-direction: column;
+            // display: flex;
+            // flex-direction: column;
         }
- 
+
         ion-row {
             align-items: center;
             text-align: center;
@@ -35,14 +44,19 @@
         ion-card {
             background-color : rgba(0, 0, 0, 0.4);
             position: relative;
-            top: 55%;
-            -webkit-transform: translateY(-55%);
-            -ms-transform: translateY(-55%);
-            transform: translateY(-55%);
+            -webkit-transform: translateY(95%);
+            -ms-transform: translateY(95%);
+            transform: translateY(95%);
         }
 
         .login-logo {
             flex: 2;
+        }
+
+        .card-header{
+            text-align: center;
+            color:white; 
+            font-size:1.5em
         }
  
         .login-form {
@@ -77,7 +91,7 @@
             width: 45%;
             margin: 0 auto;
             background-color: rgba(0, 0, 0, 0.6);
-            border: 1px solid gray;
+            border: 1px solid gold;
         }
         
         .logo {

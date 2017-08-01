@@ -9,10 +9,12 @@ import { SignupPage } from '../pages/signup-page/signup-page';
 import { SensorPage } from '../pages/sensor-page/sensor-page';
 import { HistoryPage } from '../pages/history-page/history-page';
 import { LinkPage } from '../pages/link-page/link-page';
-import { SummaryPage } from '../pages/summary-page/summary-page';
+import { SumWeekPage } from '../pages/sum-week-page/sum-week-page';
+import { SumMonthPage } from '../pages/sum-month-page/sum-month-page';
 import { ProfilePage } from '../pages/profile-page/profile-page';
 import { DoctorPage } from '../pages/doctor-page/doctor-page';
-// import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage } from '../pages/tabs/tabs';
+import { PatientListPage } from '../pages/patient-list-page/patient-list-page'
 
 import { Auth } from '../providers/auth';
 
@@ -31,10 +33,12 @@ import { HttpModule } from '@angular/http';
     SensorPage,
     HistoryPage,
     LinkPage,
-    SummaryPage,
     ProfilePage,
-    DoctorPage
-    // TabsPage
+    DoctorPage,
+    SumWeekPage,
+    SumMonthPage,
+    PatientListPage,
+    TabsPage,
   ],
   imports: [
     BrowserModule,
@@ -51,10 +55,12 @@ import { HttpModule } from '@angular/http';
     SensorPage,
     HistoryPage,
     LinkPage,
-    SummaryPage,
+    SumWeekPage,
+    SumMonthPage,
     ProfilePage,
-    DoctorPage
-    // TabsPage
+    DoctorPage,
+    PatientListPage,
+    TabsPage,
   ],
   providers: [
     Auth,

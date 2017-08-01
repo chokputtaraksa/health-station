@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
-import { ProfilePage } from '../profile-page/profile-page';
+// import { ProfilePage } from '../profile-page/profile-page';
 
 /**
  * Generated class for the LinkPage page.
