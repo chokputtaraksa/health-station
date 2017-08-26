@@ -10,12 +10,10 @@ import { SensorPage } from '../pages/sensor-page/sensor-page';
 import { HistoryPage } from '../pages/history-page/history-page';
 import { LinkPage } from '../pages/link-page/link-page';
 import { SumWeekPage } from '../pages/sum-week-page/sum-week-page';
-import { SumMonthPage } from '../pages/sum-month-page/sum-month-page';
 import { ProfilePage } from '../pages/profile-page/profile-page';
 import { DoctorPage } from '../pages/doctor-page/doctor-page';
 import { TabsPage } from '../pages/tabs/tabs';
-import { PatientListPage } from '../pages/patient-list-page/patient-list-page'
-
+import { FirstLoginPage } from '../pages/first-login-page/first-login-page'
 import { Auth } from '../providers/auth';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,8 +34,7 @@ import { HttpModule } from '@angular/http';
     ProfilePage,
     DoctorPage,
     SumWeekPage,
-    SumMonthPage,
-    PatientListPage,
+    FirstLoginPage,
     TabsPage,
   ],
   imports: [
@@ -56,10 +53,9 @@ import { HttpModule } from '@angular/http';
     HistoryPage,
     LinkPage,
     SumWeekPage,
-    SumMonthPage,
     ProfilePage,
     DoctorPage,
-    PatientListPage,
+    FirstLoginPage,
     TabsPage,
   ],
   providers: [

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
-// import { ProfilePage } from '../profile-page/profile-page';
+import { ProfilePage } from '../profile-page/profile-page';
 
 /**
  * Generated class for the LinkPage page.
@@ -17,12 +17,16 @@ import { LoginPage } from '../login-page/login-page';
 })
 export class LinkPage {
   pages: Array<{title: string, component: any, icon : string}>;
+  name : string;
+  uid : string;
   constructor(public viewCtrl: ViewController, public navCtrl: NavController, public authService: Auth) {
     this.pages = [
       // { title: 'Dashboard', component: HomePage },
       // { title: 'Profile', component: ProfilePage, icon: 'contact' },
       { title: 'Logout', component: LoginPage, icon: 'exit' },
     ];
+    this.name = this.authService.profile['thaiFullName'];
+    this.uid = this.authService.profile['_id'];
   }
 
   openPage(page) {
@@ -38,6 +42,9 @@ export class LinkPage {
       console.log("do push");
       this.navCtrl.push(page.component);
     }
+  }
+  goProfilePage(){
+    this.navCtrl.push(ProfilePage);
   }
 
 }

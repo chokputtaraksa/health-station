@@ -1,10 +1,17 @@
-<ion-list>
+
   <!--<ion-item>
     <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
       {{p.title}}
     </button>
   </ion-item>-->
+<ion-item (click)="goProfilePage()">
+  <ion-avatar item-start>
+    <img src="assets/2.jpg">
+  </ion-avatar>
+  <h2 item-end>{{name}}</h2>
+</ion-item>
 
+<ion-list>
   <ion-item *ngFor="let p of pages" (click)="openPage(p)">
       <ion-icon item-start name={{p.icon}}></ion-icon>
       <h2 item-end>{{p.title}}</h2>

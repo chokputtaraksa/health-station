@@ -9,9 +9,13 @@ import 'rxjs/add/operator/map';
 export class Auth {
   public token: any;
   public profile:object;
+  public credential:object;
   constructor(public http: Http, public storage: Storage) {
     this.storage.get('profile').then((value) => {  
       this.profile = value;
+    });
+    this.storage.get('credential').then((value) => {  
+      this.credential = value;
     });
   }
  
@@ -22,7 +26,6 @@ export class Auth {
         //Load token if exists
         this.storage.get('token').then((value) => {
             this.token = value;
- 
             let headers = new Headers();
             headers.append('Authorization', this.token);
             this.http.get(Config.AUTH_SERVER+'/api/auth/protected', {headers: headers})
@@ -47,7 +50,6 @@ export class Auth {
  
         this.http.post(Config.AUTH_SERVER+'/api/auth/register', JSON.stringify(details.profile), {headers: headers})
           .subscribe(res => {
- 
             let data = res.json();
             this.token = data.token;
             this.profile = data.user;
@@ -60,7 +62,6 @@ export class Auth {
           });
  
     });
- 
   }
  
   login(credentials){
@@ -69,11 +70,11 @@ export class Auth {
  
         let headers = new Headers();
         // headers.append('Content-Type', 'application/json');
-        headers.append('authorization', 'Basic ' + new Buffer(credentials.idNumber + ':' + credentials.idNumber).toString('base64'));
+        headers.append('authorization', 'Basic ' + new Buffer(credentials.username + ':' + credentials.password).toString('base64'));
         // headers.append('authorization', 'Basic ' + new Buffer(credentials.email + ':' + credentials.password).toString('base64'));
         this.http.get(Config.AUTH_SERVER+'/api/auth/login',  {headers: headers})
           .subscribe(res => {
- 
+            
             let data = res.json();
             this.token = data.token;
             this.profile = data.user;
@@ -93,8 +94,32 @@ export class Auth {
     this.token = '';
   }
 
-  saveProfile(profile){
-
-  }
+  firsttime_change(details){
+    return new Promise((resolve, reject) => {
+        let headers = new Headers();
+        // headers.append('authorization', 'Basic ' + new Buffer(details.email + ':' + details.password).toString('base64'));
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.token);
+        headers.append('_id', this.profile['_id']);
+        this.http.put(Config.AUTH_SERVER+'/api/auth/firsttimeupdate', JSON.stringify(details), {headers: headers})
+          .subscribe(res => {
+            let data = res.json();
+            resolve(data);
  
+          }, (err) => {
+            reject(err);
+          });
+ 
+    });
+ 
+  }
+
+  saveUsernamePassword(username, password){
+    let credential = {
+      username : username,
+      password : password
+    }
+    this.credential = credential;
+    this.storage.set('credential', credential);
+  }
 }

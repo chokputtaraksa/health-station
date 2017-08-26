@@ -22,31 +22,62 @@ import { LoginPage } from '../login-page/login-page';
 })
 export class SumWeekPage {
 
-    @ViewChild('lineCanvas') lineCanvas;
+    @ViewChild('weekChart') weekChart;
+    @ViewChild('monthChart') monthChart;
     uid : string;
     name : string;
-    chart: any;
     title : string;
     period : string;
     mode : string;
     description : any;
     todayData : any;
     date_string : string;
-    whichTime_str : string;
-    whichTime : Date;
     chartService : ChartService = new ChartService();
+    selection_list : Array<{value:string, name:string}>;
 
  
     constructor(public navCtrl: NavController, public navParams : NavParams, 
         public alertCtrl: AlertController, public authService: Auth, public loadingCtrl: LoadingController,
         public popoverCtrl: PopoverController, public dataService:DataService) {
         this.title = this.navParams.get('type');
+
         this.mode = "today"
-        this.whichTime = new Date();
         this.name = this.authService.profile['thaiFullName']
         this.uid = this.authService.profile['_id'];
-        this.whichTime_str = "week4";
         this.description = this.getDescription(this.title);
+        this.period = "week"
+        this.selection_list = [
+            {value : "week", name : "Week"},
+            {value : "month", name : "Month"},
+            {value : "year", name : "Year"}
+        ]
+    }
+
+    changePeriod(event){
+        if(event._value === "week"){
+            if(!this.weekChart['nativeElement']._chartjs){
+                this.dataService.getDataByPeriod(this.uid, event._value, this.title).then((resp)=>{
+                    this.chartService.getChart(resp, event._value, this.title, new Date(), this.weekChart);
+                },err=>{
+                    this.chartService.getChart(err, event._value, this.title, new Date(), this.weekChart);
+                });
+            }
+        }else if(event._value ==="month"){
+            if(!this.monthChart['nativeElement']._chartjs){
+                this.dataService.getDataByPeriod(this.uid, event._value, this.title).then((resp)=>{
+                    this.chartService.getChart(resp, event._value, this.title, new Date(), this.monthChart);
+                },err=>{
+                    this.chartService.getChart(err, event._value, this.title, new Date(), this.monthChart);
+                });
+            }
+        }else if(event._value ==="year"){
+            this.dataService.getDataByPeriod(this.uid, "year", this.title).then((resp)=>{
+                console.log(resp);
+            //     this.returnChart(resp,this.title, new Date(), this.weekChart);
+            },err=>{
+            //     this.returnChart(err, this.title, new Date(), this.weekChart);
+            });
+        }
     }
 
     ionViewCanEnter(){
@@ -65,117 +96,12 @@ export class SumWeekPage {
 
       });
       this.dataService.getDataByPeriod(this.uid, "week", this.title).then((resp)=>{
-        this.chart = this.returnChart(resp,this.title, this.whichTime, this.lineCanvas);
+        this.chartService.getChart(resp, "week",this.title, new Date(), this.weekChart);
       },err=>{
-        this.chart = this.returnChart(err, this.title, this.whichTime, this.lineCanvas);
+        this.chartService.getChart(err, "week",this.title, new Date(), this.weekChart);
       });
     }
 
-    returnChart(resp, type, whichTime,lineCanvas){
-      this.prepareDataForChart(resp, type, whichTime).then(result=>{ // look at prepareDataForChart
-        return this.chartService.createChart(result,type, lineCanvas);
-      },err=>{
-        return this.chartService.createChart(err,type, lineCanvas); // make zero chart
-      });
-    }
-
-    
-    prepareDataForChart(resp, type, whichTime){
-        var data_l = [];
-        var data_h = [];
-        var label = ["Sun", "Mon", "Tue", "Wed","Thu","Fri","Sat",];
-        return new Promise((resolve,reject)=>{
-            var start = new Date(whichTime);
-            start.setDate(start.getDate()-start.getDay());
-            start.setHours(0);
-            start.setMinutes(0);
-            var end = new Date(whichTime);
-            end.setDate(end.getDate()+ (6-end.getDay()));
-            end.setHours(0);
-            end.setMinutes(0);
-            this.arrangeData(resp, type).then(result=>{
-                for(var i=start.getDay(); i<=end.getDay(); i++){
-                    for(var j=1; j<=Object.keys(result).length; j++){
-                        if(result[j-1].date.getDate() == i){
-                            if(type == "Bloodpressure"){
-                                data_l[i] = result[j-1].value_l;
-                                data_h[i] = result[j-1].value_h;
-                            }else{
-                                data_l[i] = result[j-1].value;
-                            }
-                        }// can not use else here I don't know why but 0 will replace the real value
-                    } // so I use a new for loop to check if empty put 0 there
-                }
-                for(var k=start.getDay(); k<=end.getDay(); k++){
-                    if(type == "Bloodpressure"){
-                        if(!data_l[k]){
-                            data_l[k]=0;
-                        }
-                        if(!data_h[k]){
-                            data_h[k]=0;
-                        }
-                    }else{
-                        if(!data_l[k]){
-                            data_l[k]=0;
-                        }
-                        if(!data_h[k]){
-                            data_h[k]=null;
-                        }
-                    }
-                }
-                resolve({data_l: data_l, data_h: data_h,label:label});
-            },err=>{
-                for(var i=start.getDay(); i<=end.getDay(); i++){
-                    if(!data_l[i]){
-                        data_l[i]=0;
-                    }
-                    if(!data_h[i]){
-                        data_h[i]=null;
-                    }
-                }
-                reject({data_l: data_l, data_h: data_h, label:label});
-            });
-        });
-    }
-
-    arrangeData(resp, title){
-        return new Promise((resolve, reject) => {
-            try{
-                var datas = [];
-                let type : string;
-                if(title=="Heartrate"){
-                    type = "heart_rate";
-                }else if(title=="Bloodpressure"){
-                    type = "_blood_pressure";
-                }else if(title=="Temperature"){
-                    type = "body_temperature";
-                }else if(title=="Weight"){
-                    type = "body_weight";
-                }else if(title=="Height"){
-                    type = "body_height";
-                }
-                for(var index in resp){
-                    if(title =="Bloodpressure"){
-                        datas.push({
-                            date:new Date(resp[index]['effective_time_frame'].date_time), 
-                            value_l:resp[index]['systolic'+ type].value,
-                            value_h:resp[index]['diastolic'+ type].value,
-                            unit : resp[index]['systolic'+type].unit
-                        });
-                    }else{
-                        datas.push({
-                            date:new Date(resp[index]['effective_time_frame'].date_time), 
-                            value: resp[index][type].value,
-                            unit : resp[index][type].unit
-                        });
-                    }
-                }
-                resolve(datas);
-            }catch(exc){
-                reject(exc)
-            }
-        });
-    }
 
     getDateInMonth(date){ // to get number of date in the month
       return new Date(date.getFullYear(), date.getMonth(), 0).getDate();

@@ -6,137 +6,82 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title class="header-center">Profile</ion-title>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title class="header-center">
+      My Profile
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="edit()" *ngIf="!editable">
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="save()" *ngIf="editable">
+        Done
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-card>
-    <ion-item class="list">
+    <ion-item class="list" no-lines>
       <ion-avatar class="item-avatar align-center">
         <img src="assets/1.jpg">
       </ion-avatar>
     </ion-item>
-    <ion-item class="align-center">
-      <h1 style="margin-top: 0.5%;">{{thai_name}}</h1>
+    <ion-item class="name-center">
+      <h1>{{thai_name}}</h1>
       <h2 >{{eng_name}}</h2>
     </ion-item>
-    <ion-grid>
-      <ion-row>
-        <ion-col col-lg-5>
-          <ion-label class="align-center">เพศ</ion-label>
-        </ion-col>
-        <ion-col col-lg-7 >
-          <ion-label class="align-center">{{gender}}</ion-label>
-        </ion-col>
-      </ion-row>
-       <ion-row>
-        <ion-col col-lg-5>
-          <ion-label class="align-center">อายุ</ion-label>
-        </ion-col>
-        <ion-col col-lg-7 >
-          <ion-label class="align-center">{{yearsold}}</ion-label>
-        </ion-col>
-      </ion-row>
-       <ion-row>
-        <ion-col col-lg-5>
-          <ion-label class="align-center">วัน/เดือน/ปี เกิด</ion-label>
-        </ion-col>
-        <ion-col col-lg-7 >
-          <ion-label class="align-center">{{birth_date}}</ion-label>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-lg-5>
-          <ion-label class="align-center black-font">เบอร์โทรติดต่อ</ion-label>
-        </ion-col>
-        <ion-col col-lg-7 *ngIf="!editable">
-          <ion-label text-wrap class="black-font align-center">{{phone}}</ion-label>
-        </ion-col> 
-        <ion-col col-lg-7 *ngIf="editable">
-          <ion-input class="black-font" text-center [(ngModel)]="phone" placeholder="เบอร์โทรศัพท์"></ion-input> 
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-lg-5>
-          <ion-label class="align-center black-font">อีเมลล์</ion-label>
-        </ion-col>
-        <ion-col col-lg-7 *ngIf="!editable">
-          <ion-label text-wrap class="black-font align-center">{{email}}</ion-label>
-        </ion-col> 
-        <ion-col col-lg-7 *ngIf="editable">
-          <ion-input class="black-font" text-center [(ngModel)]="email" placeholder="อีเมลล์"></ion-input> 
-        </ion-col>
-      </ion-row>
-       <ion-row>
-        <ion-col col-lg-5>
-          <ion-label class="align-center black-font">กรุ๊ปเลือด</ion-label>
-        </ion-col>
-        <ion-col col-lg-7 *ngIf="!editable">
-          <ion-label text-wrap class="black-font align-center">{{bloodtype}}</ion-label>
-        </ion-col>
-        <ion-col col-lg-7 *ngIf="editable">
-          <ion-item>
-            <ion-select [(ngModel)]="bloodtype" class="black-font my-select" interface="popover">
-              <ion-option value="-">-</ion-option>
-              <ion-option value="A">A</ion-option>
-              <ion-option value="B">B</ion-option>
-              <ion-option value="AB">AB</ion-option>
-              <ion-option value="O">O</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col col-lg-5>
-          <ion-label class="align-center black-font">โรคประจำตัว</ion-label>
-        </ion-col>
-         <ion-col col-lg-7 *ngIf="!editable">
-          <ion-label text-wrap class="black-font align-center">{{disease}}</ion-label>
-        </ion-col> 
-        <ion-col col-lg-7 *ngIf="editable">
-          <ion-input class="black-font" text-center [(ngModel)]="disease" placeholder="โรคประจำตัว"></ion-input> 
-        </ion-col>
-      </ion-row>
 
-      <ion-row style="margin-bottom:3%;"> 
-        <ion-col col-lg-5>
-          <ion-label class="align-center black-font">แพ้ยา</ion-label>
-        </ion-col>
-        <ion-col col-lg-7 *ngIf="!editable">
-          <ion-label text-wrap class="black-font align-center">{{drugallergy}}</ion-label>
-        </ion-col> 
-        <ion-col col-lg-7 *ngIf="editable">
-          <ion-input class="black-font" text-center [(ngModel)]="drugallergy" placeholder="แพ้ยา"> </ion-input> 
-        </ion-col>
-      </ion-row>
-      
-      <ion-item *ngIf="editable" style="text-align:center">
-        <button class="save-button" (click)="save()">Save</button>
-        <button class="cancel-button" (click)="cancel()">Cancel</button>
+    <ion-list >
+      <ion-item *ngFor="let profile of profile_list">
+        <ion-label>{{profile.thai_title}}</ion-label>
+        <div item-content>{{profile.value}}</div>
       </ion-item>
-    </ion-grid>
-  </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <label item-start class="align-center">Doctor agreement</label>
-      <button item-end *ngIf="!showAgreement" (click)="showDoctorAgreement()"><ion-icon name="add"></ion-icon></button>
-      <button item-end *ngIf="showAgreement" (click)="showDoctorAgreement()"><ion-icon name="remove"></ion-icon></button>
-    </ion-item>
-    <ion-list *ngIf="showAgreement">
-      <ion-item>
-        <ion-label>นายแพทย์ ปุณณวิชญ์ จิตเจือจุณ</ion-label>
-        <ion-toggle (ionChange)="agreeToggle($event)" ></ion-toggle>
+      <div *ngFor="let profile_e of profile_list_editable">
+        <ion-item *ngIf="!editable">
+          <ion-label class="black-font">{{profile_e.thai_title}}</ion-label>
+          <!-- <ion-input item-right text-right class="black-font" [(ngModel)]="profile_e.value" placeholder="ไม่ได้ตั้งค่า" clearOnEdit="true" [disabled]="!editable"> </ion-input>  -->
+           <div item-content>{{profile_e.value}}</div> 
+        </ion-item>
+        <ion-item *ngIf="editable">
+          <ion-label class="black-font">{{profile_e.thai_title}}</ion-label>
+          <ion-input item-right text-right class="black-font" [(ngModel)]="profile_e.value" placeholder="ไม่ได้ตั้งค่า" clearOnEdit="true"> </ion-input> 
+        </ion-item>
+      </div>
+
+      <ion-item *ngIf="address_allow&&!editable" (click)="fullAddress(address)">
+        <ion-label>ที่อยู่ตามบัตรประชาชน</ion-label>
+        <ion-label>{{address}}</ion-label>
+      </ion-item>
+      <ion-item *ngIf="editable">
+        <ion-label class="black-font">ที่อยู่ตามบัตรประชาชน</ion-label>
+        <ion-label>{{address}}</ion-label>
+        <ion-toggle [(ngModel)]="address_allow"></ion-toggle>
+      </ion-item>
+
+      <ion-item *ngIf="address2_allow&&!editable" (click)="fullAddress(address2)">
+        <ion-label>ที่อยู่ที่ติดต่อได้</ion-label>
+        <ion-label item-end>{{address2}}</ion-label>
+      </ion-item>
+      <ion-item *ngIf="editable">
+        <ion-label class="black-font">ที่อยู่ที่ติดต่อได้</ion-label>
+        <ion-input item-right text-right class="black-font" [(ngModel)]="address2" placeholder="ไม่ได้ตั้งค่า" clearOnEdit="true"> </ion-input> 
+        <ion-toggle [(ngModel)]="address2_allow"></ion-toggle>
+      </ion-item>
+
+      <ion-item-divider>การอนุญาติให้สถานพยาบาลเข้าถึงข้อมูล</ion-item-divider>
+
+      <ion-item *ngFor="let provider of provider_list" class="black-font">
+        <ion-label>{{provider.eng_name}}</ion-label>
+        <ion-toggle [(ngModel)]="provider.allow" [disabled]="!editable"></ion-toggle>
       </ion-item>
     </ion-list>
-  </ion-card>
-
-  <ion-fab right top *ngIf="!editable">
-    <button ion-fab color="primary" (click)="edit()" ><ion-icon name="create"></ion-icon></button>
-  </ion-fab>
 </ion-content>

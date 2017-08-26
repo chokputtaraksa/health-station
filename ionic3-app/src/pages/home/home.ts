@@ -11,7 +11,6 @@ import { TabsPage } from '../tabs/tabs'
 import { LinkPage } from '../link-page/link-page'
 import { LoginPage } from '../login-page/login-page'
 import { SumWeekPage } from '../sum-week-page/sum-week-page';
-import { ProfilePage } from '../profile-page/profile-page';
 @Component({
   selector: 'home-page',
   templateUrl: 'home.html',
@@ -19,26 +18,22 @@ import { ProfilePage } from '../profile-page/profile-page';
 export class HomePage {
   loading: any;
   uid : string;
-  name : string;
-  birth_date : string;
-  heartrate : number;
-  hr_unit : string;
-  weight : number;
-  w_unit : string;
-  height : number;
-  h_unit : string;
-  bp_h : number;
-  bp_l : number;
-  bp_unit : string;
-  temperature : number;
-  t_unit : string;
+  item_list: Array<{title: string, component: any, icon : string}>;
+  card_list: Array<{value_left:string,value_right:string, img_left:string, img_right : string}>;
 
   constructor(public http : Http,public navCtrl: NavController,public alertCtrl: AlertController, 
     public authService: Auth, public loadingCtrl: LoadingController, public popoverCtrl: PopoverController, 
     public navParams : NavParams, public storage : Storage) {
-
-      this.name = this.authService.profile['thaiFullName']
+      
       this.uid = this.authService.profile['_id'];
+      this.item_list = [
+        { title: 'Body Measurements', component: LoginPage, icon: 'body' },
+        { title: 'Health Records', component: LoginPage, icon: 'stats' },
+      ]
+      this.card_list = [
+        { value_left: "Height", value_right: "Bloodpressure", img_left: 'assets/icon/height2.jpg', img_right: 'assets/icon/bp.jpeg' },
+        { value_left: "Heartrate", value_right: "Temperature", img_left: 'assets/icon/hr2.png', img_right: 'assets/icon/temp.png' },
+      ]
   }
 
   ionViewCanEnter() {  //will trigger as soon as the page is loaded
@@ -56,13 +51,22 @@ export class HomePage {
     });
   }
 
+  goAnotherPage(page){
+
+  }
+
   goSummaryPage(value){
-    let data = {
-      type : value,
-      uid : this.uid
-    }
-    // console.log(value);
-    this.navCtrl.push(TabsPage, data);
+    let data={
+      type : value
+    };
+    console.log(value);
+    this.navCtrl.push(SumWeekPage, data);
+    // let data = {
+    //   type : value,
+    //   uid : this.uid
+    // }
+    // // console.log(value);
+    // this.navCtrl.push(TabsPage, data);
   }
  
   showLoader(){
@@ -73,9 +77,6 @@ export class HomePage {
  
     this.loading.present();
  
-  }
-  goProfilePage(){
-    this.navCtrl.push(ProfilePage);
   }
 
 }

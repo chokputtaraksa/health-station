@@ -9,7 +9,7 @@ import { LinkPage } from '../link-page/link-page'
 import { LoginPage } from '../login-page/login-page'
 import { SumWeekPage } from '../sum-week-page/sum-week-page';
 import { ProfilePage } from '../profile-page/profile-page';
-import { PatientListPage } from '../patient-list-page/patient-list-page'
+
 @Component({
   selector: 'doctor-page',
   templateUrl: 'doctor-page.html'
@@ -69,9 +69,9 @@ export class DoctorPage {
     this.navCtrl.push(SumWeekPage, data);
   }
 
-  goPatientInfo(){
-      this.navCtrl.push(PatientListPage);
-  }
+  // goPatientInfo(){
+  //     this.navCtrl.push(PatientListPage);
+  // }
  
   showLoader(){
  

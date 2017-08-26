@@ -3,16 +3,32 @@
     home-page {
 
         ion-content{
-            background-image: url('../assets/background/mascot.jpeg');
+            // background-image: url('../assets/background/mascot.jpeg');
+            background-color: white;
+        }
+
+        .no-margin {
+            margin: 0 !important;
+        }
+
+        .no-padding {
+            padding: 10 !important;
+            margin: 0 !important;
+        }
+
+        .titleicon {
+            position: absolute;
+            width: 100%;
+            margin: 0 0 0 3%;
         }
 
         .roundness_card{
-            border-radius : 25px;
+            border-radius : 20px;
             // height : 100%;
             // overflow:hidden;
             // flex: 1 1 auto;
-            // width : 150px;
-            // height : 150px;
+            width : 100%;
+            height : 100%;
         }
         
         .card-title{
@@ -31,8 +47,8 @@
             text-align: right;
         }
         .header_mid{
-            text-align: center;
-            
+            text-align: center;   
+            margin: 0 0 0 10%;  
         }
     }
 }

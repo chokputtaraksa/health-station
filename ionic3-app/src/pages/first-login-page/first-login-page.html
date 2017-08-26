@@ -1,0 +1,32 @@
+<!--
+  Generated template for the UsernamePasswordPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>เข้าใช้งานครั้งแรก</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label class="black-font" floating>ชื่อผู้ใช้งานใหม่</ion-label>
+      <ion-input class="black-font" [(ngModel)]="username"> </ion-input> 
+    </ion-item>
+    <ion-item>
+      <ion-label class="black-font" floating>รหัสผ่านใหม่</ion-label>
+      <ion-input type="password" class="black-font" [(ngModel)]="pass"> </ion-input> 
+    </ion-item>
+    <ion-item>
+      <ion-label class="black-font" floating>รหัสผ่านใหม่</ion-label>
+      <ion-input type="password" class="black-font" [(ngModel)]="pass2"> </ion-input> 
+    </ion-item>
+    <ion-item>
+      <button ion-button full (click)="changeUsernamePass()" class="login-button">ยืนยัน</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,36 +1,36 @@
 
   <ion-header>
-    <ion-navbar color="primary">
+    <ion-navbar>
+      <ion-title style="text-align:center; margin-right : 7%">
+        Summary {{title}}
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="showMenu($event)">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
     </ion-navbar>
 
-    <div style="margin-top:0%; background-color:white">
-      <ion-segment [(ngModel)]="whichTime_str">
-        <ion-segment-button value="week1">
-          Week1
-        </ion-segment-button>
-        <ion-segment-button value="week2">
-          Week2
-        </ion-segment-button>
-        <ion-segment-button value="week3">
-          Week3
-        </ion-segment-button>
-        <ion-segment-button value="week4">
-          Week4
+    <div style="margin-top:0%;">
+      <ion-segment [(ngModel)]="period" (ionChange)="changePeriod($event)">
+        <ion-segment-button *ngFor="let selection of selection_list" value="{{selection.value}}">
+          {{selection.name}}
         </ion-segment-button>
       </ion-segment>
     </div>
   </ion-header>   
   <ion-content [class.hr-content]="title=='Heartrate'" [class.t-content]="title=='Temperature'"
                [class.bp-content]="title=='Bloodpressure'" [class.h-content]="title=='Height'"
-               [class.w-content]="title=='Weight'">  
+               [class.w-content]="title=='Height'">  
     <ion-card>
       <!-- <ion-card-header>
         {{period}}
       </ion-card-header> -->
       <ion-card-content>
-        <canvas #lineCanvas></canvas>
+        <canvas #weekChart [hidden]="period!='week'"></canvas>
+        <canvas #monthChart [hidden]="period!='month'"></canvas>
+        <canvas #yearChart [hidden]="period!='year'"></canvas>
       </ion-card-content>
-      
     </ion-card>
 
     <ion-card>
