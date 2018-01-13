@@ -19,21 +19,40 @@
       </ion-segment>
     </div>
   </ion-header>   
-  <ion-content [class.hr-content]="title=='Heartrate'" [class.t-content]="title=='Temperature'"
-               [class.bp-content]="title=='Bloodpressure'" [class.h-content]="title=='Height'"
-               [class.w-content]="title=='Height'">  
-    <ion-card>
+  <ion-content>  
+    
+    <ion-card class="no-margin roundness_card" [class.hr-content]="title=='Heartrate'" [class.t-content]="title=='Temperature'"
+    [class.bp-content]="title=='Bloodpressure'" [class.h-content]="title=='Height'"
+    [class.w-content]="title=='Height'">
+      <ion-row class="underline-row no-padding">
+        <ion-col col-8 class="no-padding">
+          <ion-item no-lines class="no-padding" style="background-color:transparent">
+            <ion-label class="type-font no-padding">{{title}}</ion-label>
+          </ion-item>
+        </ion-col>               
+        <ion-col col-4 class="no-padding">
+          <ion-item no-lines class="no-padding" style="background-color:transparent">
+            <h1 class="type-font align-center no-padding">{{todayData}} {{short_unit}}</h1>
+            <h2 class="date-time-font no-padding">{{date_string}}</h2>
+          </ion-item>
+        </ion-col>
+      </ion-row>
       <!-- <ion-card-header>
         {{period}}
       </ion-card-header> -->
-      <ion-card-content>
-        <canvas #weekChart [hidden]="period!='week'"></canvas>
+      <ion-card-content class="date-time-font">
         <canvas #monthChart [hidden]="period!='month'"></canvas>
+        <canvas #weekChart [hidden]="period!='week'"></canvas>
         <canvas #yearChart [hidden]="period!='year'"></canvas>
       </ion-card-content>
-    </ion-card>
+  </ion-card>
 
-    <ion-card>
+      <ion-item class="item-with-boarder" no-lines>
+        <ion-label>Unit</ion-label>
+        <div item-content class="padding-right">{{unit}}</div>
+      </ion-item>  
+
+    <!-- <ion-card>
       <div style="margin-top:0%; background-color:white">
         <ion-segment [(ngModel)]="mode">
           <ion-segment-button value="today">
@@ -70,6 +89,6 @@
       <ion-item *ngIf="mode=='desc' && description">
         <button>รายละเอียดเพิ่มเติม</button>
       </ion-item>
-    </ion-card>
+    </ion-card> -->
   
   </ion-content>

@@ -3,17 +3,15 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-// import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login-page/login-page';
-
-// import { TabsPage } from '../pages/tabs/tabs';
+import { BodyMeasurePage } from '../pages/body-measure-page/body-measure-page';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = LoginPage;//LoginPage;
+  rootPage:any = BodyMeasurePage;//LoginPage;
   // pages: Array<{title: string, component: any}>;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

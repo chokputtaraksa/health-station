@@ -32,7 +32,7 @@ export class ChartService {
         getChart(raw_data, period, type, todayDate,lineCanvas){
                 if(period === "week"){
                         this.getWeekChartData(raw_data, type, todayDate).then(result=>{ // look at prepareDataForChart
-                                console.log(result)
+                                // console.log(result)
                                 return this.createChart(result, period, type, lineCanvas,this.chooseTheme(type));
                         },err=>{
                                 return this.createChart(err, period, type, lineCanvas,this.chooseTheme(type)); // make zero chart
@@ -40,6 +40,7 @@ export class ChartService {
                 }
                 if(period ==="month"){
                         this.getMonthChartData(raw_data, type, todayDate).then(result=>{ // look at prepareDataForChart
+                                // console.log(result)
                                 return this.createChart(result, period, type, lineCanvas, this.chooseTheme(type));
                         },err=>{
                                 return this.createChart(err, period, type, lineCanvas,this.chooseTheme(type)); // make zero chart
@@ -95,7 +96,7 @@ export class ChartService {
                                                         data_h[k]=null;
                                                 }
                                         }
-                                        label[index++] = new Date(todayDate.getFullYear(), todayDate.getMonth(), k)
+                                        label[index++] = new Date(start.getFullYear(), start.getMonth(), start.getDate()+k)
                                 }
                                 resolve({data_l: data_l, data_h: data_h,label:label});
                         },err=>{
@@ -138,7 +139,7 @@ export class ChartService {
                       if(!data_h[i-1]){
                         data_h[i-1]=0;
                       }
-                      label[i-1] = moment([todayDate.getFullYear(), todayDate.getMonth(), i])
+                      label[i-1] = new Date(todayDate.getFullYear(), todayDate.getMonth(), i);
                     }
                     resolve({data_l: data_l, data_h: data_h, label:label});
                   },err=>{
@@ -149,12 +150,56 @@ export class ChartService {
                       if(!data_h[i-1]){
                         data_h[i-1]=0;
                       }
-                      label[i-1] = moment([todayDate.getFullYear(), todayDate.getMonth(), i])
+                      label[i-1] = new Date(todayDate.getFullYear(), todayDate.getMonth(), i);
                     }
                     reject({data_l: data_l, data_h: data_h, label:label});
                   });
               });
             }
+
+
+        //     getYearChartData(resp, type, todayDate){
+        //         var data_l = [];
+        //         var data_h = [];
+        //         var label = [];
+        //       return new Promise((resolve,reject)=>{
+        //           this.arrangeData(resp, type).then(result=>{
+        //             for(var i=1; i<=this.getDateInMonth(result[0].date); i++){
+        //               for(var j=1; j<=Object.keys(result).length; j++){
+        //                 if(result[j-1].date.getDate() == i){
+        //                   if(type == "Bloodpressure"){
+        //                     data_l[i-1] = result[j-1].value_l;
+        //                     data_h[i-1] = result[j-1].value_h;
+        //                   }else{
+        //                     data_l[i-1] = result[j-1].value;
+        //                   }
+        //                 }// can not use else here I don't know why but 0 will replace the real value
+        //               } // so I use new for loop to check if empty put 0 there
+        //             }
+        //             for(var i=1; i<=this.getDateInMonth(result[0].date); i++){
+        //               if(!data_l[i-1]){
+        //                 data_l[i-1]=0;
+        //               }
+        //               if(!data_h[i-1]){
+        //                 data_h[i-1]=0;
+        //               }
+        //               label[i-1] = new Date(todayDate.getFullYear(), todayDate.getMonth(), i);
+        //             }
+        //             resolve({data_l: data_l, data_h: data_h, label:label});
+        //           },err=>{
+        //             for(var i=1; i<=this.getDateInMonth(new Date(todayDate.getFullYear(), todayDate.getMonth())); i++){
+        //               if(!data_l[i-1]){
+        //                 data_l[i-1]=0;
+        //               }
+        //               if(!data_h[i-1]){
+        //                 data_h[i-1]=0;
+        //               }
+        //               label[i-1] = new Date(todayDate.getFullYear(), todayDate.getMonth(), i);
+        //             }
+        //             reject({data_l: data_l, data_h: data_h, label:label});
+        //           });
+        //       });
+        //     }
           
               arrangeData(resp, title){
                   return new Promise((resolve, reject) => {
@@ -355,49 +400,34 @@ export class ChartService {
                                         labels: result['label'],
                                         datasets: [
                                         {
-                                                label: type + " :",
-                                                fill: false,
-                                                lineTension: 0.1,
+                                                label: type + " :", // bar
                                                 backgroundColor: "rgba(75,192,192,0.4)",
                                                 borderColor: "rgba(75,192,192,1)",
-                                                borderCapStyle: 'butt',
-                                                borderDashOffset: 0.0,
-                                                borderJoinStyle: 'miter',
-                                                pointBorderColor: "rgba(75,192,192,1)",
-                                                pointBackgroundColor: "#fff",
-                                                pointBorderWidth: 1,
-                                                pointHoverRadius: 10,
-                                                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                                                pointHoverBorderColor: "rgba(220,220,220,1)",
-                                                pointHoverBorderWidth: 2,
-                                                pointRadius: 1,
-                                                pointHitRadius: 10,
+                                                borderWidth: 0.1,
                                                 data: result['data_l'],
-                                                spanGaps: false,
                                         },
-                                        {
-                                                label: type + " :",
-                                                fill: false,
-                                                lineTension: 0.1,
-                                                backgroundColor: "rgba(75,192,192,0.4)",
-                                                borderColor: "rgba(75,192,192,1)",
-                                                borderCapStyle: 'butt',
-                                                borderDash: [],
-                                                borderDashOffset: 0.0,
-                                                borderJoinStyle: 'miter',
-                                                pointBorderColor: "rgba(75,192,192,1)",
-                                                pointBackgroundColor: "#fff",
-                                                pointBorderWidth: 1,
-                                                pointHoverRadius: 10,
-                                                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                                                pointHoverBorderColor: "rgba(220,220,220,1)",
-                                                pointHoverBorderWidth: 2,
-                                                pointRadius: 1,
-                                                pointHitRadius: 10,
-                                                data: result['data_l'],
-                                                spanGaps: false,
-                                                type: 'line',
-                                        }
+                                        // {
+                                        //         //{borderColor,}
+                                        //         label: type + " :", //line
+                                        //         fill: false,
+                                        //         lineTension: 0.1,
+                                        //         backgroundColor: "rgba(75,192,192,0.4)",
+                                        //         borderColor: "rgba(75,192,192,1)",
+                                        //         borderCapStyle: 'round',
+                                        //         borderJoinStyle: 'round',
+                                        //         pointBorderColor: "rgba(55,192,192,1)",
+                                        //         pointBackgroundColor: "#fff",
+                                        //         pointBorderWidth: 1,
+                                        //         pointHoverRadius: 10,
+                                        //         pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                        //         pointHoverBorderColor: "rgba(220,220,220,1)",
+                                        //         pointHoverBorderWidth: 2,
+                                        //         pointRadius: 1,
+                                        //         pointHitRadius: 10,
+                                        //         data: result['data_l'],
+                                        //         spanGaps: false,
+                                        //         type: 'line',
+                                        // }
                                 ]
                                 },
                                 options: {
@@ -416,6 +446,7 @@ export class ChartService {
                                                         gridLines:{
                                                                 display : false
                                                         },
+                                                        barPercentage: 0.15,
                                                         type: 'time',
                                                         time: {
                                                                 unit : date_format,

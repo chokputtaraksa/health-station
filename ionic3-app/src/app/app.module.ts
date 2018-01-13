@@ -5,15 +5,14 @@ import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login-page/login-page';
-import { SignupPage } from '../pages/signup-page/signup-page';
-import { SensorPage } from '../pages/sensor-page/sensor-page';
-import { HistoryPage } from '../pages/history-page/history-page';
 import { LinkPage } from '../pages/link-page/link-page';
 import { SumWeekPage } from '../pages/sum-week-page/sum-week-page';
 import { ProfilePage } from '../pages/profile-page/profile-page';
 import { DoctorPage } from '../pages/doctor-page/doctor-page';
 import { TabsPage } from '../pages/tabs/tabs';
 import { FirstLoginPage } from '../pages/first-login-page/first-login-page'
+import { BodyMeasurePage } from '../pages/body-measure-page/body-measure-page'
+
 import { Auth } from '../providers/auth';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,14 +26,12 @@ import { HttpModule } from '@angular/http';
     MyApp,
     HomePage,
     LoginPage,
-    SignupPage,
-    SensorPage,
-    HistoryPage,
     LinkPage,
     ProfilePage,
     DoctorPage,
     SumWeekPage,
     FirstLoginPage,
+    BodyMeasurePage,
     TabsPage,
   ],
   imports: [
@@ -48,14 +45,12 @@ import { HttpModule } from '@angular/http';
     MyApp,
     HomePage,
     LoginPage,
-    SignupPage,
-    SensorPage,
-    HistoryPage,
     LinkPage,
     SumWeekPage,
     ProfilePage,
     DoctorPage,
     FirstLoginPage,
+    BodyMeasurePage,
     TabsPage,
   ],
   providers: [

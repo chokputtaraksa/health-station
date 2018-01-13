@@ -20,10 +20,12 @@ var healthDataSchema = new mongoose.Schema({
         },
         date_time : {
                 type : Date,
-                require : true
+                require : true,
         }
 },{
-        timestamps: true
+        timestamps: true,
+        unique: true,
 });
+healthDataSchema.index({uid:1, type: 1, date_time: 1}, {unique: true});
  
 module.exports = mongoose.model('health_data', healthDataSchema);

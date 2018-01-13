@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
-import { Auth } from './auth'
+import { Auth } from '../providers/auth'
 import { Config } from '../config';
 import 'rxjs/add/operator/map';
  
@@ -13,7 +13,6 @@ export class UserController {
   }
  
   saveProfile(storage_profile, db_save_profile){
-    console.log(db_save_profile);
     if(Object.keys(db_save_profile).length > 0&&(typeof  db_save_profile) ==='object'){
       let contents = {
           bloodtype: db_save_profile.bloodtype,
@@ -24,7 +23,6 @@ export class UserController {
           address2 : db_save_profile.address2,
           address_allow : db_save_profile.address_allow
       }
-      console.log(contents);
       this.storage.set('profile', storage_profile);
       return new Promise((resolve, reject) => {
         let headers = new Headers();

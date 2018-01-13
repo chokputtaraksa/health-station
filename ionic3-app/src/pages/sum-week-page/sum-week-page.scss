@@ -1,11 +1,51 @@
 .ios, .md {
  
-        sum-week-page {
+    sum-week-page {
  
         // .scroll-content {
         //     background-color: map-get($colors, light);
         // }
- 
+            
+        .transparent-card {
+            background-color: transparent;
+          }
+
+          .no-margin {
+            margin-top: 1.5% !important;
+            margin-bottom: 0 !important;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
+          }
+
+          .no-padding {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+
+          .item-with-boarder{
+            box-shadow: 0 0 0.4px rgba(0, 0, 0, 0.3);
+          }
+
+        .date-time-font{
+            font-size: 15px;
+        }
+
+        .padding-right{
+            padding-right:2%;
+        }
+
+        .type-font{
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .roundness_card{
+            border-radius : 10px;
+        }
+
+        .underline-row{
+            border-bottom: 0.1px solid;
+       }
+
         ion-card-header {
             font-weight: bold;
         }
@@ -21,7 +61,7 @@
         // }
 
         .hr-content{
-            // background-color: yellow;
+            background-color: #FAEE0F;
             // ion-card{
             //     background-color: lightyellow;
             // }

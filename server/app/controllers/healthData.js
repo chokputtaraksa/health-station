@@ -1,6 +1,5 @@
 var Data = require('../models/healthdata');
-var authConfig = require('../../config/auth');
-var User = require('../models/patient');
+var User = require('../models/user_model');
 var ObjectId = require('mongodb').ObjectID;
 var jwt = require('jsonwebtoken'); 
 
@@ -13,12 +12,11 @@ exports.insertData = function(req, res, next){ //save
                 User.findOne({_id: ObjectId(user_id)}, function(err, existingUser){
                         var arr = {};
                         if(err){
-                                return res.status(500).send({error: 'Internal server error'});
+                                return res.status(500).send({error: 'Internal server error due to : '+err});
                         }
-                
                         if(!existingUser){
                         // console.log("mee u law");
-                                return res.status(404).send({error: 'Can\'t find this user.'});
+                                return res.status(404).send({error: 'Cannot find this user.'});
                         }
                         if(doc.body_temperature){
                                 arr = {
@@ -74,7 +72,10 @@ exports.insertData = function(req, res, next){ //save
                         })
                         data.save(function(err, data){
                                 if(err){
-                                        return res.status(500).send({error: 'Internal server error'});
+                                        if(err.code==11000){
+                                                return res.status(406).send({error: 'Duplicate data'});
+                                        }
+                                        return res.status(500).send({error: 'Internal server error due to : ' +err});
                                 }
         
                                 return res.status(201).send({error: false})
@@ -308,6 +309,16 @@ function findDataByPeriod(user_id, type, period, callback){
                 end.setMinutes(0);
         }else if(period == "month"){
                 start = new Date();
+                start.setDate(1);
+                start.setHours(0);
+                start.setMinutes(0);
+                end = new Date();
+                end.setDate(getDateInMonth(end.getFullYear(), end.getMonth()));
+                end.setHours(0);
+                end.setMinutes(0);
+        }else if(period =="year"){
+                start = new Date();
+                start.setFullYear(start.getFullYear()-1)
                 start.setDate(1);
                 start.setHours(0);
                 start.setMinutes(0);

@@ -1,18 +1,69 @@
 var passport = require('passport');
 
-var User = require('../app/models/patient');
-var config = require('./auth');
+var User = require('../models/user_model');
+var config = require('../../config/develop');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 var LocalStrategy = require('passport-local').Strategy;
 var BasicStrategy = require('passport-http').BasicStrategy
 // var FacebookStrategy = require('passport-facebook').Strategy;
  
-
-var localOptions = {
-    usernameField: 'email',
-    passwordField: 'email'
+var basicOptions = {
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true
 };
+
+var basicLogin = new BasicStrategy(basicOptions, function(req, username, password, done) {
+    User.findOne({"authentication.username": username}, function(err, user){
+        if(err){
+            return done(null, false, {message:err});
+        }
+        if(!user){
+            return done(null, false, {message: 'Login failed. Please try again.'});
+        }
+        
+        if(password===user.authentication.password){
+            return done(null, user);
+        }else{
+            return done(null, false, {message:'Wrong password'});
+        }
+    });
+
+});
+ 
+var jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    secretOrKey: config.secret
+};
+ 
+var jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
+    User.findById(payload._id, function(err, user){
+        if(err){
+            return done(err, false);
+        }
+        if(user){
+            if(payload.engFullName === user.id_card.engFullName){
+                return done(null, user);
+            }else{
+                return done(err, false);
+            }
+        } else {
+            done(null, false);
+        }
+ 
+    });
+ 
+});
+ 
+passport.use(jwtLogin);
+passport.use(basicLogin);
+
+
+// var localOptions = {
+//     usernameField: 'email',
+//     passwordField: ''
+// };
 
 // var localLogin = new LocalStrategy( function(username, password, done) {
 //     User2.findOne({ username: username }, function (err, user) {
@@ -46,60 +97,6 @@ var localOptions = {
 //     });
  
 // });
-
-var basicOptions = {
-    usernameField: 'email',
-    passwordField: 'email'
-};
-
-var basicLogin = new BasicStrategy(basicOptions, function(email, password, done){
-    // console.log(email);
-    // console.log(password);
-    User.findOne({
-        "id_card.idNumber": email
-    }, function(err, user){
- 
-        if(err){
-            console.log("error");
-            return done(err);
-        }
- 
-        if(!user){
-            // console.log("haa mai jer");
-            return done(null, false, {error: 'Login failed. Please try again.'});
-        }
-        // console.log(user);
-        return done(null, user);
- 
-    });
- 
-});
- 
-var jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
-    secretOrKey: config.secret
-};
- 
-var jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
- 
-    User.findById(payload._id, function(err, user){
- 
-        if(err){
-            return done(err, false);
-        }
- 
-        if(user){
-            done(null, user);
-        } else {
-            done(null, false);
-        }
- 
-    });
- 
-});
- 
-passport.use(jwtLogin);
-passport.use(basicLogin);
 
 // module.exports = function(passport) {
 

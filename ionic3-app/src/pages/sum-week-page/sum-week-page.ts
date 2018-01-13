@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, PopoverController} from 'ionic-angular';
 
 import { Auth } from '../../providers/auth';
-import { DataService } from '../../providers/data';
-import { ChartService } from '../../providers/chart'
+import { DataService } from '../../providers/health-data';
+import { ChartService } from '../../providers/chart-services/summary-chart'
 
 import { LoginPage } from '../login-page/login-page';
 
@@ -30,6 +30,8 @@ export class SumWeekPage {
     period : string;
     mode : string;
     description : any;
+    unit :string;
+    short_unit : string;
     todayData : any;
     date_string : string;
     chartService : ChartService = new ChartService();
@@ -40,7 +42,6 @@ export class SumWeekPage {
         public alertCtrl: AlertController, public authService: Auth, public loadingCtrl: LoadingController,
         public popoverCtrl: PopoverController, public dataService:DataService) {
         this.title = this.navParams.get('type');
-
         this.mode = "today"
         this.name = this.authService.profile['thaiFullName']
         this.uid = this.authService.profile['_id'];
@@ -51,6 +52,7 @@ export class SumWeekPage {
             {value : "month", name : "Month"},
             {value : "year", name : "Year"}
         ]
+        this.getUnit(this.title);
     }
 
     changePeriod(event){
@@ -90,7 +92,11 @@ export class SumWeekPage {
 
     ionViewDidLoad() {
       this.dataService.getLatestDataByType(this.uid, this.navParams.get('type')).then(response=>{
-        this.todayData = response;
+        if(response){
+            this.todayData = response[Object.keys(response)[0]]['value'];
+        }else{
+            this.todayData = '';
+        }
         this.date_string = this.isTheSameDate(response['effective_time_frame']['date_time']);
       },err=>{
 
@@ -102,6 +108,24 @@ export class SumWeekPage {
       });
     }
 
+    getUnit(type){
+        if(type==="Heartrate"){
+            this.unit = "beats/minute";
+            this.short_unit = "bpm";
+        }else if(type==="Bloodpressure"){
+            this.unit = "mm Hg";
+            this.short_unit = "mm Hg";
+        }else if(type==="Weight"){
+            this.unit = "Kilogram";
+            this.short_unit = "kg";
+        }else if(type==="Height"){
+            this.unit = "Centimatre";
+            this.short_unit = "cm";
+        }else if(type==="Temperature"){
+            this.unit = "Celsius";
+            this.short_unit = "°C";
+        }
+    }
 
     getDateInMonth(date){ // to get number of date in the month
       return new Date(date.getFullYear(), date.getMonth(), 0).getDate();

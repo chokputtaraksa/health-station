@@ -11,6 +11,7 @@ import { TabsPage } from '../tabs/tabs'
 import { LinkPage } from '../link-page/link-page'
 import { LoginPage } from '../login-page/login-page'
 import { SumWeekPage } from '../sum-week-page/sum-week-page';
+import { BodyMeasurePage } from '../body-measure-page/body-measure-page'
 @Component({
   selector: 'home-page',
   templateUrl: 'home.html',
@@ -27,7 +28,7 @@ export class HomePage {
       
       this.uid = this.authService.profile['_id'];
       this.item_list = [
-        { title: 'Body Measurements', component: LoginPage, icon: 'body' },
+        { title: 'Body Measurements', component: BodyMeasurePage, icon: 'body' },
         { title: 'Health Records', component: LoginPage, icon: 'stats' },
       ]
       this.card_list = [
@@ -52,14 +53,13 @@ export class HomePage {
   }
 
   goAnotherPage(page){
-
+    this.navCtrl.push(page);
   }
 
   goSummaryPage(value){
     let data={
       type : value
     };
-    console.log(value);
     this.navCtrl.push(SumWeekPage, data);
     // let data = {
     //   type : value,
