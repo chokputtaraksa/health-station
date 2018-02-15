@@ -1,5 +1,5 @@
 module.exports = {
-    'databaseUrl': 'mongodb://mongodb:27017/healthcare',
+    'databaseUrl': 'mongodb://127.0.0.1:27017/healthcare',
     'secret': 'eypZAZy0CY^g9%KreypZAZy0CY^g9%Kr',
     'facebookAuth' : {
         'clientID'      : '448792645469640', // your App ID
