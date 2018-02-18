@@ -1,0 +1,60 @@
+.ios, .md {
+ 
+    home-page {
+
+        ion-content{
+            // background-image: url('../assets/background/mascot.jpeg');
+            background-color: white;
+        }
+
+        .no-margin {
+            margin: 0 !important;
+        }
+
+        .no-padding {
+            padding: 10 !important;
+            margin: 0 !important;
+        }
+
+        .titleicon {
+            position: absolute;
+            width: 100%;
+            margin: 0 0 0 3%;
+        }
+
+        .roundness_card{
+            border-radius : 20px;
+            // height : 100%;
+            // overflow:hidden;
+            // flex: 1 1 auto;
+            width : 100%;
+            height : 100%;
+        }
+        
+        .card-title{
+            position: absolute;
+            top: 36%;
+            font-size: 2.0em;
+            width: 100%;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .aling_left{
+            text-align: left;
+        }
+        .aling_right{
+            text-align: right;
+        }
+        .header_mid{
+            text-align: center;   
+            margin: 0 0 0 10%;  
+        }
+
+        .no-horizon-border-card{
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100%;
+        }
+    }
+}

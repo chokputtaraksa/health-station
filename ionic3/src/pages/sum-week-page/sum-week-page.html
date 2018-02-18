@@ -1,0 +1,97 @@
+
+  <ion-header color="primary">
+    <ion-navbar>
+      <ion-title style="text-align:center; margin-right : 7%">
+        Summary {{title}}
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="showMenu($event)">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+
+    <div style="margin-top:0%;">
+      <ion-segment [(ngModel)]="period" (ionChange)="changePeriod($event)">
+        <ion-segment-button *ngFor="let selection of selection_list" value="{{selection.value}}">
+          {{selection.name}}
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-header>
+
+  <ion-content>  
+    
+    <ion-card class="no-margin roundness_card">
+      <ion-row class="underline-row no-padding">
+        <ion-col col-8 class="no-padding">
+          <ion-item no-lines class="no-padding" style="background-color:transparent">
+            <ion-label class="type-font no-padding">{{title}}</ion-label>
+          </ion-item>
+        </ion-col>               
+        <ion-col col-4 class="no-padding">
+          <ion-item no-lines class="no-padding" style="background-color:transparent">
+            <h1 class="type-font align-center no-padding">{{todayData}} {{short_unit}}</h1>
+            <h2 class="date-time-font no-padding">{{date_string}}</h2>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-card-header>
+        {{period}}
+      </ion-card-header> -->
+      <ion-card-content class="date-time-font" [class.hr-content]="title=='Heartrate'" [class.t-content]="title=='Temperature'"
+      [class.bp-content]="title=='Bloodpressure'" [class.h-content]="title=='Height'"
+      [class.w-content]="title=='Height'">
+        <canvas #monthChart [hidden]="period!='month'"></canvas>
+        <canvas #weekChart [hidden]="period!='week'"></canvas>
+        <canvas #yearChart [hidden]="period!='year'"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <button ion-button full color="white">
+      <ion-item no-lines>
+        <ion-label>Unit</ion-label>
+        <div item-content class="padding-right">{{unit}}</div>
+      </ion-item>  
+    </button>
+
+    <!-- <ion-card>
+      <div style="margin-top:0%; background-color:white">
+        <ion-segment [(ngModel)]="mode">
+          <ion-segment-button value="today">
+            Today
+          </ion-segment-button>
+          <ion-segment-button value="desc" >
+            Description
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      <ion-item *ngIf="mode=='today'">
+        <button class="full-btn-size" *ngIf="todayData">
+          <label item-start>{{title}}</label>
+          <label item-end *ngIf="title=='Heartrate'">{{todayData.heart_rate.value}}</label>
+          <label item-end *ngIf="title=='Heartrate'">{{todayData.heart_rate.unit}}</label>
+          <label item-end *ngIf="title=='Bloodpressure'">{{todayData.systolic_blood_pressure.value}}/{{todayData.diastolic_blood_pressure.value}}</label>
+          <label item-end *ngIf="title=='Bloodpressure'">{{todayData.diastolic_blood_pressure.unit}}</label>
+          <label item-end *ngIf="title=='Weight'">{{todayData.body_weight.value}}</label>
+          <label item-end *ngIf="title=='Weight'">{{todayData.body_weight.unit}}</label>
+          <label item-end *ngIf="title=='Height'">{{todayData.body_height.value}}</label>
+          <label item-end *ngIf="title=='Height'">{{todayData.body_height.unit}}</label>
+          <label item-end *ngIf="title=='Temperature'">{{todayData.body_temperature.value}}</label>
+          <label item-end *ngIf="title=='Temperature'">{{todayData.body_temperature.unit}}</label>
+          <label>{{date_string}}</label>
+        </button>
+        <button class="full-btn-size" *ngIf="!todayData">
+          <label>Do not have any data now.</label>
+        </button>
+      </ion-item>
+      <ion-item *ngIf="mode=='desc' && description">
+        <h1 >{{description.title}}</h1>
+        <h3 text-wrap>{{description.t_desc}}</h3>
+      </ion-item>
+      <ion-item *ngIf="mode=='desc' && description">
+        <button>รายละเอียดเพิ่มเติม</button>
+      </ion-item>
+    </ion-card> -->
+  
+  </ion-content>
